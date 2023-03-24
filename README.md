@@ -8,3 +8,6 @@ Software Engineering Project
 - Faiza Maghrabi
 - Michal Staszewski
 - Fareza Rahman Enus
+
+## Pre-conditions
+- You run pip install python-binance
