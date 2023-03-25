@@ -1,13 +1,48 @@
-<html>
-    <head>
 
-        <title>{% block title %} Website {% endblock %}</title>
-    </head>
-    <body>
-        <div id="content", name="content">
-            {% block content %}
-            {% endblock %}
-        </div>
-    </body>
-
-</html>
+    <html>
+        <head>
+            <style>
+                button{
+                    font-size: 20px;
+                    background-color: #000000;
+                    color: white;
+                    padding: 14px 28px;
+                    cursor: pointer;
+                    border-radius: 15%;
+                }
+                h1{
+                    color: blueviolet;
+                    float: right;
+                    top: 0%;
+                    right: 0%;
+                }
+                
+            </style>
+        </head>
+        <body>
+            {% block content%} 
+            {%endblock%}
+            {% block navbar%}
+            <div id="content", name="content">
+                <div id="buttons">
+                    <form action="home.html">
+                        <button type="submit" , name="buyOrSell", value="buyOrSell">Buy/Sell Coins</button>
+                    </form>
+                    <form action="FirstPage.html">
+                        <button type="submit", name="watchlist", value="watchlist">Watchlist</button>
+                    </form>
+                    <form action="FirstPage.html">
+                        <button type="submit", name="exam", value="exam">Beginner Exam/Revision</button>
+                    </form>
+                    <form action="FirstPage.html">
+                        <button type="submit", name="ticket", value="ticket">Submit Ticket</button>
+                    </form>
+                    <form action="FirstPage.html">
+                        <button type="submit", name="depositOrWithdraw", value="depositOrWithdraw">Deposit/Withdraw Money</button>
+                    </form>
+                </div>
+            </div>
+            {% endblock%}
+            
+        </body>
+    </html>
