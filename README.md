@@ -10,9 +10,17 @@ Software Engineering Project
 - Fareza Rahman Enus
 
 ## Pre-conditions
-- You run pip install python-binance
+- Have pip package manager installed
+- Have python installed
 
 ## Setup
 
 1. Clone git repo using **git clone** 
-2. Install dependencies using **pip install -r requirements.txt**
+2. Cd into CryptoCadet folder (If not already in it)
+3. Install dependencies using **pip install -r requirements.txt**
+
+
+## Running
+
+1. Be in directory CryptoCadet/mysite
+2. run **python manage.py runserver**
