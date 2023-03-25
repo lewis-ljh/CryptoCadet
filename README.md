@@ -15,7 +15,7 @@ Software Engineering Project
 
 ## Setup
 
-1. Clone git repo using **git clone** 
+1. Clone git repo using **git clone https://github.com/lewis-ljh/CryptoCadet.git** 
 2. Cd into CryptoCadet folder (If not already in it)
 3. Install dependencies using **pip install -r requirements.txt**
 
