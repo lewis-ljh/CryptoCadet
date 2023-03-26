@@ -20,29 +20,39 @@
             </style>
         </head>
         <body>
-            {% block content%} 
-            {%endblock%}
-            {% block navbar%}
-            <div id="content", name="content">
-                <div id="buttons">
-                    <form action="yettobemade.html">
-                        <button type="submit" , name="buyOrSell", value="buyOrSell">Buy/Sell Coins</button>
-                    </form>
-                    <form action="yettobemade.html">
-                        <button type="submit", name="watchlist", value="watchlist">Watchlist</button>
-                    </form>
-                    <form action="yettobemade.html">
-                        <button type="submit", name="exam", value="exam">Beginner Exam/Revision</button>
-                    </form>
-                    <form action="yettobemade.html">
-                        <button type="submit", name="ticket", value="ticket">Submit Ticket</button>
-                    </form>
-                    <form action="yettobemade.html">
-                        <button type="submit", name="depositOrWithdraw", value="depositOrWithdraw">Deposit/Withdraw Money</button>
-                    </form>
+            {% if user.is_authenticated %}
+                {% block content%} 
+                {% endblock %}
+                {% block navbar%}
+                <div id="content", name="content">
+                    <div id="buttons">
+                        <form action="yettobemade.html">
+                            <button type="submit" , name="buyOrSell", value="buyOrSell">Buy/Sell Coins</button>
+                        </form>
+                        <form action="yettobemade.html">
+                            <button type="submit", name="watchlist", value="watchlist">Watchlist</button>
+                        </form>
+                        <form action="yettobemade.html">
+                            <button type="submit", name="exam", value="exam">Beginner Exam/Revision</button>
+                        </form>
+                        <form action="yettobemade.html">
+                            <button type="submit", name="ticket", value="ticket">Submit Ticket</button>
+                        </form>
+                        <form action="yettobemade.html">
+                            <button type="submit", name="depositOrWithdraw", value="depositOrWithdraw">Deposit/Withdraw Money</button>
+                        </form>
+                    </div>
                 </div>
-            </div>
-            {% endblock%}
+                {% endblock%}
+            {% else %}
+                {% block login %} 
+                    <p><a href="/login">Login Here</a></p>
+                {% endblock %}
+                
+            {% endif %}
+
+
+        
             
         </body>
     </html>
