@@ -11,17 +11,18 @@
                     border-radius: 15%;
                 }
                 h1{
-                    color: blueviolet;
-                    float: right;
-                    top: 0%;
-                    right: 0%;
+                    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                    color:darkgray;
+                    text-align: center;
+                     
                 }
                 
             </style>
         </head>
         <body>
-            {% if user.is_authenticated %}
-                
+            {% if user.is_authenticated %}   
+                {% block title%} 
+                {% endblock %}     
                 {% block navbar%}
                 <div id="content", name="content">
                     <div id="buttons">
@@ -40,15 +41,14 @@
                         <form action="yettobemade.html">
                             <button type="submit", name="depositOrWithdraw", value="depositOrWithdraw">Deposit/Withdraw Money</button>
                         </form>
-                        {% block logout %}
-                        <p> <a href="/log-out">Log out</a></p>
-                        {% endblock %}
-
+                        <form action="/logout">
+                            <button type="submit", name="logout", value="logout">Logout</button>
+                        </form>
                     </div>
                 </div>
-                {% endblock%}
                 {% block content%} 
                 {% endblock %}
+                {% endblock%}
             {% else %}
                 {% block login %} 
                     <p><a href="/login">Login Here</a></p>
