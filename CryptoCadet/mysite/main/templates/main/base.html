@@ -4,17 +4,17 @@
             <style>
                 button{
                     font-size: 20px;
+                    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
                     background-color: #000000;
                     color: white;
-                    padding: 14px 28px;
+                    padding: 14px 20px;
                     cursor: pointer;
-                    border-radius: 15%;
+                    border-radius: 20%;
                 }
                 h1{
-                    color: blueviolet;
-                    float: right;
-                    top: 0%;
-                    right: 0%;
+                    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                    color:darkgray;
+                    text-align: center;   
                 }
                 
             </style>
@@ -40,10 +40,6 @@
                         <form action="yettobemade.html">
                             <button type="submit", name="depositOrWithdraw", value="depositOrWithdraw">Deposit/Withdraw Money</button>
                         </form>
-                        {% block logout %}
-                        <p> <a href="/log-out">Log out</a></p>
-                        {% endblock %}
-
                     </div>
                 </div>
                 {% endblock%}
