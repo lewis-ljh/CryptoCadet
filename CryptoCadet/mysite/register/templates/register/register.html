@@ -3,11 +3,11 @@
 {% block title %} Create an account {% endblock %}
 
 {% block content %} 
-
+{% endblock %}
+{% block login %}
     <form method="POST">
         {% csrf_token %}
         {{form}}
         <button type="submit">Register</button>
     </form>
-
 {% endblock %}
