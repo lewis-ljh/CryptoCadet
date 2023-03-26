@@ -14,3 +14,6 @@ def viewCrypto(response):
             if validateSell():
                 return render(response, "main/home.html")
     return render(response, "main/viewList.html", {"tickers": getTickers()})
+
+def logout(response):
+    return render(response, "main/log-out.html")

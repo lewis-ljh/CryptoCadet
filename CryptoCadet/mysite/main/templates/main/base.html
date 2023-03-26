@@ -21,8 +21,7 @@
         </head>
         <body>
             {% if user.is_authenticated %}
-                {% block content%} 
-                {% endblock %}
+                
                 {% block navbar%}
                 <div id="content", name="content">
                     <div id="buttons">
@@ -41,9 +40,15 @@
                         <form action="yettobemade.html">
                             <button type="submit", name="depositOrWithdraw", value="depositOrWithdraw">Deposit/Withdraw Money</button>
                         </form>
+                        {% block logout %}
+                        <p> <a href="/log-out">Log out</a></p>
+                        {% endblock %}
+
                     </div>
                 </div>
                 {% endblock%}
+                {% block content%} 
+                {% endblock %}
             {% else %}
                 {% block login %} 
                     <p><a href="/login">Login Here</a></p>
