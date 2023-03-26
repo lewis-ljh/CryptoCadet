@@ -14,14 +14,16 @@
                 h1{
                     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
                     color:darkgray;
-                    text-align: center;   
+                    text-align: center;
+                     
                 }
                 
             </style>
         </head>
         <body>
-            {% if user.is_authenticated %}
-                
+            {% if user.is_authenticated %}   
+                {% block content%} 
+                {% endblock %}     
                 {% block navbar%}
                 <div id="content", name="content">
                     <div id="buttons">
@@ -40,11 +42,12 @@
                         <form action="yettobemade.html">
                             <button type="submit", name="depositOrWithdraw", value="depositOrWithdraw">Deposit/Withdraw Money</button>
                         </form>
+                        <form action="/logout">
+                            <button type="submit", name="logout", value="logout">Logout</button>
+                        </form>
                     </div>
                 </div>
                 {% endblock%}
-                {% block content%} 
-                {% endblock %}
             {% else %}
                 {% block login %} 
                     <p><a href="/login">Login Here</a></p>
