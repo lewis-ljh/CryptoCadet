@@ -22,7 +22,7 @@
         </head>
         <body>
             {% if user.is_authenticated %}   
-                {% block content%} 
+                {% block title%} 
                 {% endblock %}     
                 {% block navbar%}
                 <div id="content", name="content">
@@ -47,6 +47,8 @@
                         </form>
                     </div>
                 </div>
+                {% block content%} 
+                {% endblock %}
                 {% endblock%}
             {% else %}
                 {% block login %} 
