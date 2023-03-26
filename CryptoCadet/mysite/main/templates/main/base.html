@@ -2,14 +2,16 @@
     <html>
         <head>
             <style>
-                button{
-                    font-size: 20px;
-                    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-                    background-color: #000000;
-                    color: white;
-                    padding: 14px 20px;
-                    cursor: pointer;
-                    border-radius: 20%;
+                a{
+                    font-size: 16px;
+                    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;  
+                    color: black;
+                    cursor: pointer;        
+                    display: inline;
+                    text-align: center;
+                    display: inline;
+                    margin: 5px;
+                    
                 }
                 h1{
                     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -17,7 +19,35 @@
                     text-align: center;
                      
                 }
+                body{
+                    background-color: gray;
+                    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                }
+               
                 
+                div,section{
+                    border: 1px solid aliceblue;
+                    padding: 12px;
+                    margin: 1px;
+                }
+                a:link{
+                    text-decoration: underline;
+                    color: silver;
+                }
+                a:visited{
+                    text-decoration: underline;
+                    color: blue;
+                }
+                a:hover{
+                    text-decoration: underline;
+                    color: white;
+                    font-weight: bold;
+                    background-color: forestgreen;
+                }
+                nav{
+                    text-align: center;
+                    text-decoration: underline;
+                }
             </style>
         </head>
         <body>
@@ -26,25 +56,17 @@
                 {% endblock %}     
                 {% block navbar%}
                 <div id="content", name="content">
-                    <div id="buttons">
-                        <form action="yettobemade.html">
-                            <button type="submit" , name="buyOrSell", value="buyOrSell">Buy/Sell Coins</button>
-                        </form>
-                        <form action="yettobemade.html">
-                            <button type="submit", name="watchlist", value="watchlist">Watchlist</button>
-                        </form>
-                        <form action="yettobemade.html">
-                            <button type="submit", name="exam", value="exam">Beginner Exam/Revision</button>
-                        </form>
-                        <form action="yettobemade.html">
-                            <button type="submit", name="ticket", value="ticket">Submit Ticket</button>
-                        </form>
-                        <form action="yettobemade.html">
-                            <button type="submit", name="depositOrWithdraw", value="depositOrWithdraw">Deposit/Withdraw Money</button>
-                        </form>
-                        <form action="/logout">
-                            <button type="submit", name="logout", value="logout">Logout</button>
-                        </form>
+                    <div id="navbar">
+                        <nav role="navigation">
+                            <ul>
+                                <a href="/yettobemade">Buy or Sell</a>
+                                <a href="/yettobemade">Watchlist</a>
+                                <a href="/yettobemade">Beginner Exam/Revision</a>
+                                <a href="/yettobemade">Submit Ticket</a>
+                                <a href="/yettobemade">Deposit or Withdraw</a>
+                                <a href="logout">Logout</a>
+                            </ul>
+                        </nav>   
                     </div>
                 </div>
                 {% block content%} 
