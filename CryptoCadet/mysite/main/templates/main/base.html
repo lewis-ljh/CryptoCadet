@@ -62,13 +62,16 @@
                                 <a href="/yettobemade">Beginner Exam/Revision</a>
                                 <a href="/yettobemade">Submit Ticket</a>
                                 <a href="/yettobemade">Deposit or Withdraw</a>
-                                <a href="logout">Logout</a>
+                                {% block Logout %}
+                                <a href="/log-out.html">Logout</a>
+                                {% endblock %}
                             </ul>
                         </nav>   
                     </div>
                 </div>
-                {% block content%} 
                 {% endblock %}
+
+                {% block content%} 
                 {% endblock%}
             {% else %}
                 {% block login %} 
