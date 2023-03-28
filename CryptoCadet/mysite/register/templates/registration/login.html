@@ -5,7 +5,7 @@
 
 {% block login %} 
 
-<form method="post">
+<form method="post" class="form-group">
     {% csrf_token %}
     {{form}}
     <p>Don't have an account? Create one <a href="/register">here</a></p>
