@@ -1,9 +1,9 @@
-{% extends "main/base.html" %}
+<!-- {% extends "main/base.html" %} -->
 
-{% block title %} Login {% endblock %}
+<!-- {% block title %} Login {% endblock %} -->
 
 
-{% block login %} 
+{% block loginform %} 
 
 <form method="post" class="form-group">
     {% csrf_token %}
@@ -14,4 +14,4 @@
 
 {% endblock %}
 
-{% block content %} Already logged in. Click <a href="/home"> here </a> {% endblock %}
+<!-- {% block logincontent %} Already logged in. Click <a href="/home"> here </a> {% endblock %} -->
