@@ -7,7 +7,7 @@
 
 <form method="post" class="form-group">
     {% csrf_token %}
-    {{form}}
+    {{form|crispy}}
     <p>Don't have an account? Create one <a href="/register">here</a></p>
     <button type="submit"> Login </button>
 </form>
