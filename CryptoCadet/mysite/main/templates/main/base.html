@@ -23,7 +23,6 @@
                             <span class="navbar-toggler-icon"></span>
                          </button>
                     <div class="collapse navbar-collapse" id="navbarText">
-                        {% if user.is_authenticated %}   
                          <ul class="navbar-nav ml-auto">
                             {% if user.is_authenticated %}   
                                 <li class="nav-item">
@@ -74,7 +73,7 @@
                 function leave(){
                     let accepted = confirm('Are you sure you want to log out?');
                     if (accepted){
-                        window.location.href = 'log-out';
+                        window.location.href = 'logout';
                     }
                 }
 
