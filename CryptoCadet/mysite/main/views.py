@@ -30,4 +30,4 @@ def cryptoList(response):
         coin.price = price
         coin.save()
         #render crytpo list
-    return render(response, "main/cryptoList.html" ,{"price":price})
+    return render(response, "main/cryptoList.html" ,{"coins":coins})
