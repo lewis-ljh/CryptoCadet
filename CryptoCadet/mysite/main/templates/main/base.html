@@ -22,9 +22,13 @@
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                          </button>
+                    {% block navContent %}
                     <div class="collapse navbar-collapse" id="navbarText">
                          <ul class="navbar-nav ml-auto">
-                            {% if user.is_authenticated %}   
+                            {% if user.is_authenticated %}
+                                <li class="nav-item">
+                                    <a class='nav-link' href="{% url 'CryptoList' %}">Exchange List</a>
+                                </li>   
                                 <li class="nav-item">
                                     <a class='nav-link' href="/yettobemade">Buy or Sell</a>
                                 </li>
@@ -52,16 +56,18 @@
                             {% endif %}
                         </ul>
                     </div>
+                    {% endblock %}
                   </nav>
 
                 {% endblock %}
 
-
+                
                 {% if not user.is_authenticated %}   
                     {% block loginform %} {% endblock %}
                 {% endif %}
 
-
+                {%block content %}
+                {% endblock %}
 
              <!-- jQuery first, then Popper.js, then Bootstrap JS -->
             <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -73,7 +79,7 @@
                 function leave(){
                     let accepted = confirm('Are you sure you want to log out?');
                     if (accepted){
-                        window.location.href = 'logout';
+                        window.location.href = "{% url 'logout' %}";
                     }
                 }
 
