@@ -7,31 +7,30 @@ def createClient():
     client = Client(APIKEY, SECRETKEY)
     return client
 
-"""
-
-            Don't change
 
 
-#def buyOrder(coinPair, amount):
-#    order = Client.create_order(
-#        symbol="BTCUSDT", #buy eth with usdt
-#        side=Client.SIDE_BUY,
-#        type=Client.ORDER_TYPE_MARKET,
-#        quantity=0.015
-#    )
-#
-#def sellOrder():
-#    client = createClient()
-#    order = client.create_order(
-#        symbol="BTCUSDT",
-#        side=client.SIDE_SELL,
-#        type=client.ORDER_TYPE_MARKET,
-#        quantity=0.00111
-#    )
+def buyOrder(coinPair, amount):
+    order = Client.create_order(
+        symbol=coinPair, 
+        side=Client.SIDE_BUY,
+        type=Client.ORDER_TYPE_MARKET,
+        quantity=amount
+    )
 
-"""
+def sellOrder(coinPair, amount):
+    client = createClient()
+    order = client.create_order(
+        symbol=coinPair,
+        side=client.SIDE_SELL,
+        type=client.ORDER_TYPE_MARKET,
+        quantity=amount
+    )
+
 
 def validateSell():
+    return False
+
+def validateBuy():
     return True
     
 
