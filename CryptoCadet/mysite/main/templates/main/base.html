@@ -42,8 +42,12 @@
                                     <a class='nav-link' href="/yettobemade">Submit Ticket</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class='nav-link' href="/yettobemade">Deposit or Withdraw</a></li> 
+                                    <a class='nav-link' href="/yettobemade">Deposit or Withdraw</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class='nav-link' href="{% url 'personal_info' %}">Personal Information</a>
+                                </li>
+
                                 {% block Logout %}
                                 <li>
                                     <button class='btn btn-primary' id="'logout" onclick="leave()">Logout</button>

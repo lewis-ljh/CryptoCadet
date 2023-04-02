@@ -1,0 +1,24 @@
+{% extends "main/base.html" %}
+{% block title %} Personal Information {% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ first_name }} {{ last_name }}</div>
+                <div class="card-body">
+                    <h5 class="card-title">Personal Information</h5>
+                    {% if address %}
+                        <p class="card-text">Address: {{ address.street_name }}, {{ address.city }}, {{ address.post_code }}, {{ address.country }}</p>
+                    {% else %}
+                        <p class="card-text">Address: N/A</p>
+                    {% endif %}
+                    <p class="card-text">Phone Number: {{ phone_number }}</p>
+                    <p class="card-text">Account Balance: {{ account_balance }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
