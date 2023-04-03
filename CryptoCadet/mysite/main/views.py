@@ -44,14 +44,14 @@ def cryptoList(response):
 def tickets(response):
 
     TicketFormSet = modelformset_factory(Ticket, fields=('title', 'query'))
-    queryset = Ticket.objects.filter(__name__.startswith('0'))
+    # queryset = Ticket.objects.filter(__name__.startswith('0'))
     if response.method == 'POST':
-        formset = TicketFormSet(response.POST, response.FILES, queryset=queryset)
+        formset = TicketFormSet(response.POST, response.FILES)
         if formset.is_valid():
             formset.save()
 
     else:
-        formset = TicketFormSet(queryset=queryset)
+        formset = TicketFormSet()
 
     print(formset)
 
