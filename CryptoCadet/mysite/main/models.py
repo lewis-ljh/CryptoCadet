@@ -5,7 +5,10 @@ from django.db import models
 class Coin(models.Model):
     coinName = models.CharField(max_length=30)
     ticker = models.CharField(max_length=10)
-    price = models.FloatField(max_length=5 ,null=True)
+    price = models.FloatField(max_length=5 ,null=True, blank=True)
+
+    def __str__(self):
+        return self.coinName
 
 class Ticket(models.Model):
     num = models.AutoField(primary_key=True)
