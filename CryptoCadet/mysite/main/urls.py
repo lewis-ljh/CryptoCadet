@@ -9,5 +9,5 @@ urlpatterns = [
     path("log-out/", views.logout, name="log-out"),
     path("cryptoList/", views.cryptoList, name="CryptoList"),
     path("personal_info/", views.ViewPersonalInformation.as_view(), name="personal_info"),
-    path("watchlist/", wlv.watchlist, name="watchlist"),
+    path("watchlist/", wlv.watchList, name="watchlist"),
 ] 
