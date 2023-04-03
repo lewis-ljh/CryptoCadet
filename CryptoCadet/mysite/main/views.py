@@ -2,6 +2,11 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from .APIManager import *
 from .models import Coin
+# from .forms import TicketForm
+
+from .models import Ticket
+from django.forms import modelformset_factory
+
 # Create your views here.
 
 def home(response):
@@ -35,3 +40,31 @@ def cryptoList(response):
         coin.save()
         #render crytpo list
     return render(response, "main/cryptoList.html" ,{"coins":coins})
+
+def tickets(response):
+
+    TicketFormSet = modelformset_factory(Ticket, fields=('title', 'query'))
+    queryset = Ticket.objects.filter(__name__.startswith('0'))
+    if response.method == 'POST':
+        formset = TicketFormSet(response.POST, response.FILES, queryset=queryset)
+        if formset.is_valid():
+            formset.save()
+
+    else:
+        formset = TicketFormSet(queryset=queryset)
+
+    print(formset)
+
+    # queryset = Author.objects.filter(name__startswith='O')
+    # if request.method == "POST":
+    #     formset = AuthorFormSet(request.POST, request.FILES,queryset=queryset,)
+    #     if formset.is_valid():
+    #         formset.save()
+    #         # Do something.
+    # else:
+    #     formset = AuthorFormSet(queryset=queryset)
+
+
+
+
+    return render(response, "main/tickets.html", {'formset': formset})
