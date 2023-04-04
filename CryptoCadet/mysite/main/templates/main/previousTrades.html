@@ -1,0 +1,8 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+    {% for trade in trades %}
+        <p>{{trade.coinName}} -- {{trade.price}} -- {{trade.type}} -- {{trade.time}}</p>
+    {% endfor %}
+
+{% endblock %}

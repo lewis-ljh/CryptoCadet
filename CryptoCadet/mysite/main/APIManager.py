@@ -9,29 +9,23 @@ def createClient():
 
 
 
-def buyOrder(coinPair, amount):
-    order = Client.create_order(
-        symbol=coinPair, 
-        side=Client.SIDE_BUY,
-        type=Client.ORDER_TYPE_MARKET,
-        quantity=amount
-    )
-
-def sellOrder(coinPair, amount):
-    client = createClient()
-    order = client.create_order(
-        symbol=coinPair,
-        side=client.SIDE_SELL,
-        type=client.ORDER_TYPE_MARKET,
-        quantity=amount
-    )
-
-
-def validateSell():
+def coinExists(coin):
+    tickers = getTickers()
+    for x in range(len(tickers)):
+        if tickers[x]["symbol"] == coin:
+            return True
     return False
 
-def validateBuy():
-    return True
+
+
+def validateSell(coin):
+    if coinExists(coin):
+        # if user has enough money
+        return True
+
+def validateBuy(coin):
+    if coinExists(coin):
+        return True
     
 
 def getTickers():
@@ -47,3 +41,13 @@ def getUSDTCoins():
         b = a[x]["symbol"]
         if b[len(b)-4:] == "USDT":
             print(a[x]["symbol"], ":", a[x]["price"])
+
+def getPrice(symbol):
+    client = createClient()
+    prices = client.get_all_tickers()
+    for x in range(len(prices)):
+        if prices[x]["symbol"] == symbol:
+            return prices[x]["price"]
+        
+    return None
+

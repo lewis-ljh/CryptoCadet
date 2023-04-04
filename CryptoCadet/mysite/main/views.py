@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from .APIManager import *
-from .models import Coin
+from .models import Coin, Order, OwnedCoin
+from datetime import datetime
+from django.contrib.auth.models import User
+
 # from .forms import TicketForm
 
 from .models import Ticket
@@ -14,15 +17,59 @@ def home(response):
 
 
 def BuyAndSell(response):
+    def getUser(request):
+        return request.user
+    
+    coinName = response.POST.get("BuyOrSell")
     if response.method=="POST":
         if response.POST.get("sell"):
-            if validateSell():
-                return render(response, "main/home.html")
+            if validateSell(coinName):
+                order = Order.objects.create(user=getUser(response), coinName=coinName, price=getPrice(coinName), type="sell", time=datetime.now())
+                order.save()
+
+                ownedCoins = OwnedCoin.objects.all()
+                for coins in ownedCoins:
+                    if getUser(response)==coins.user and coinName==coins.coinName:
+                        coins.amount = coins.amount - float(response.POST.get("HowMuch"))
+                        coins.save()
+                        break
+
+                return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.all(), "found":True})
+            else:
+                return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.all(), "found":False})
+            
+
+
             
         if response.POST.get("buy"):
-            if validateBuy():
-                return render(response, "main/home.html")
-    return render(response, "main/BuyAndSell.html", {"tickers": getTickers()})
+            coinName = response.POST.get("BuyOrSell")
+
+            if validateBuy(coinName):
+                order = Order.objects.create(user=getUser(response), coinName=coinName, price=getPrice(coinName), type="buy", time=datetime.now())
+                order.save()
+
+                ownedCoins = OwnedCoin.objects.all()
+                owned = False
+                for coins in ownedCoins:
+                    if getUser(response)==coins.user and coinName==coins.coinName:
+                        owned = True
+                        coins.amount = coins.amount + float(response.POST.get("HowMuch"))
+                        coins.save()
+                        break
+                
+                if not owned:
+                    ownedCoin = OwnedCoin.objects.create(user=getUser(response), coinName=coinName, amount=float(response.POST.get("HowMuch"))) 
+
+                return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.all(), "found":True})
+            else:
+                return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.all(), "found":False})
+    return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.all(), "found":True})
+
+def previousTrades(response):
+    trades = Order.objects.filter(user=response.user)
+    return render(response, "main/previousTrades.html", {"trades":trades})
+
+
 
 def logout(response):
     return render(response, "main/log-out.html")
