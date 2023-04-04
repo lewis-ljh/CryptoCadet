@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'crispy_bootstrap4',
     'main.apps.MainConfig',
     'register.apps.RegisterConfig',
-    'watchlist.apps.WatchlistConfig'
+    'watchlist.apps.WatchlistConfig',
+    'exam.apps.ExamConfig',
 ]
 
 MIDDLEWARE = [

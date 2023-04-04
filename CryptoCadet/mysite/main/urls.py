@@ -1,6 +1,8 @@
 from django.urls import path
 from . import views
 from watchlist import views as wlv
+from exam import views as EView
+
 urlpatterns = [
     path("", views.home, name="home"),
     path("home/", views.home, name="home"),
@@ -10,5 +12,5 @@ urlpatterns = [
     path("tickets/", views.tickets, name="tickets"),
     path("watchlist/", wlv.watchList, name="watchlist"),
     path("previousTrades", views.previousTrades, name="previousTrades"),
-    path("exam/", take_quiz, name="exam"),
+    path("exam/", EView.take_quiz, name="exam"),
 ] 
