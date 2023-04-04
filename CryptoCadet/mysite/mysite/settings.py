@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'main.apps.MainConfig',
     'register.apps.RegisterConfig',
     'watchlist.apps.WatchlistConfig',
-    'exam.apps.ExamConfig',
+    'exam.apps.ExamConfig'
 ]
 
 MIDDLEWARE = [
