@@ -14,8 +14,7 @@ def watchList(response):
     else:
         form = WatchlistForm()
         form.instance.user = response.user
-
-        
+ 
     try:
         items = WatchCoin.objects.all().filter(user=response.user)
     except WatchCoin.DoesNotExist:
