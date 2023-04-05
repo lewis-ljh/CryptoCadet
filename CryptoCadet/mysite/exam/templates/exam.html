@@ -1,0 +1,94 @@
+{% extends "main/base.html" %}
+
+  <head>
+    <title>Investment Quiz</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+
+       
+
+{%block content%}
+    <h1>Investment Quiz</h1>
+
+    <p>Test your knowledge about investment!</p>
+
+    <form id="quiz-form">
+      <h2>Question 1</h2>
+        <p>What is the definition of ROI?</p>
+         <label>
+            <input type="radio" name="q1" value="a">
+                a. Return of Investment
+         </label><br>
+
+        <label>
+            <input type="radio" name="q1" value="b">
+            b. Rate of Interest
+        </label><br>
+
+        <label>
+            <input type="radio" name="q1" value="c">
+            c. Risk of Investment
+        </label><br><br>
+      
+      <h2>Question 2</h2>
+        <p>What is the difference between stocks and bonds?</p>
+        <label>
+            <input type="radio" name="q2" value="a">
+            a. Stocks are riskier than bonds
+        </label><br>
+
+        <label>
+            <input type="radio" name="q2" value="b">
+            b. Bonds are riskier than stocks
+        </label><br>
+
+        <label>
+            <input type="radio" name="q2" value="c">
+            c. Stocks represent ownership in a company while bonds are debt
+        </label><br><br>
+      
+      <h2>Question 3</h2>
+        <p>What is diversification?</p>
+        <label>
+            <input type="radio" name="q3" value="a">
+            a. Investing in a single stock or bond
+        </label><br>
+
+        <label>
+            <input type="radio" name="q3" value="b">
+            b. Investing in multiple stocks or bonds to reduce risk
+        </label><br>
+
+        <label>
+            <input type="radio" name="q3" value="c">
+            c. Investing in a mutual fund
+        </label><br><br>
+      
+      <input type="submit" value="Submit">
+    </form>
+    
+    <div id="results"></div>
+    
+    <script>
+        const quizForm = document.getElementById('quiz-form');
+        const resultsDiv = document.getElementById('results');
+
+        const correctAnswers = ['a', 'c', 'b'];
+
+        quizForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        
+        let score = 0;
+        const userAnswers = [quizForm.q1.value, quizForm.q2.value, quizForm.q3.value];
+        
+        userAnswers.forEach((answer, index) => {
+            if (answer === correctAnswers[index]) {
+            score += 1;
+            }
+        });
+        
+        resultsDiv.innerHTML = `<h2>Your Score: ${score}/${correctAnswers.length}</h2>`;
+        });
+    </script>
+{%endblock%}

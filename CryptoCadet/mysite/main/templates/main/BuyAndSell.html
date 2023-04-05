@@ -1,11 +1,7 @@
 {% extends "main/base.html" %}
 
-{% block title %} BuyAndSell {% endblock %}
-
-
-
 {% block content %}
-    <form method="post", action="#">
+    <form method="post">
         {% csrf_token %}
         {{form.as_p}}    
         <label for="BuyOrSell">What coin would you like to buy or sell, e.g. BTCUSDT</label><br>
@@ -18,7 +14,16 @@
 
     </form>
 
+    {% if not found %}
+        <p>Error, check values entered</p>
+    {% endif %}
+
     <p>Owned Coins:</p>
+    {% for coin in coins %}
+        {% if coin.amount != 0%}
+        <p>{{coin.coinName}} --- {{coin.amount}}</p>
+        {% endif %}
+    {% endfor %}
 
     <!--
     {% for item in tickers %}

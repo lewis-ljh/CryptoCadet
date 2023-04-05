@@ -14,17 +14,10 @@ class RegisterForm(UserCreationForm):
     email = forms.EmailField()
     first_name = forms.CharField(max_length=30, required=True)
     last_name = forms.CharField(max_length=30, required=True)
-    address = forms.CharField(max_length=100, required=True)
-    phone_number = forms.CharField(max_length=20, required=True)
-    city = forms.CharField(max_length=100, required=True)
-    street_name = forms.CharField(max_length=100, required=True)
-    post_code = forms.CharField(max_length=20, required=True)
-    country = forms.CharField(max_length=100, required=True)
 
     class Meta:
         model = User
-        fields = ["username", "email", "first_name", "last_name", "password1", "password2", "address", "phone_number",
-                  "country"]
+        fields = ["username", "email", "first_name", "last_name", "password1", "password2"]
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -57,15 +50,53 @@ class RegisterForm(UserCreationForm):
         user.last_name = self.cleaned_data.get('last_name')
         if commit:
             user.save()
-            address = Address(user=user,
-                              city=self.cleaned_data.get('city'),
-                              street_name=self.cleaned_data.get('street_name'),
-                              post_code=self.cleaned_data.get('post_code'),
-                              country=self.cleaned_data.get('country'))
-            address.save()
-            profile = Profile(user=user,
-                              address=self.cleaned_data.get('address'),
-                              phone_number=self.cleaned_data.get('phone_number'),
-                              account_balance=0)
+            profile = Profile(user=user)
             profile.save()
+            address = Address(user=user)
+            address.save()
         return user
+
+class PersonalInfoForm(forms.ModelForm):
+    address = forms.CharField(max_length=100, required=True)
+    phone_number = forms.CharField(max_length=20, required=True)
+    class Meta:
+        model = Profile
+        fields = ['address', 'phone_number']
+
+        widgets = {
+            'phone_number': forms.TextInput(attrs={'class': 'form-control'}),
+            'account_balance': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+    def save(self, commit=True):
+        profile = super(PersonalInfoForm, self).save(commit=False)
+        profile.address = self.cleaned_data.get('address')
+        profile.phone_number = self.cleaned_data.get('phone_number')
+        if commit:
+            profile.save()
+        return profile
+
+class AddressForm(forms.ModelForm):
+    city = forms.CharField(max_length=100, required=True)
+    street_name = forms.CharField(max_length=100, required=True)
+    post_code = forms.CharField(max_length=20, required=True)
+    country = forms.CharField(max_length=100, required=True)
+    class Meta:
+        model = Address
+        fields = ['city', 'street_name', 'post_code', 'country']
+
+        widgets = {
+            'city': forms.TextInput(attrs={'class': 'form-control'}),
+            'street_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'post_code': forms.TextInput(attrs={'class': 'form-control'}),
+            'country': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+    def save(self, commit=True):
+        address = super(AddressForm, self).save(commit=False)
+        address.city = self.cleaned_data.get('city')
+        address.street_name = self.cleaned_data.get('street_name')
+        address.post_code = self.cleaned_data.get('post_code')
+        address.country = self.cleaned_data.get('country')
+        if commit:
+            address.save()
+        return address

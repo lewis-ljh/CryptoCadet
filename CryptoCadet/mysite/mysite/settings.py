@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'crispy_bootstrap4',
     'main.apps.MainConfig',
     'register.apps.RegisterConfig',
-    'watchlist.apps.WatchlistConfig'
+    'watchlist.apps.WatchlistConfig',
+    'exam.apps.ExamConfig'
 ]
 
 MIDDLEWARE = [
@@ -86,6 +87,7 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = 'auth.user'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
