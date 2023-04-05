@@ -1,45 +1,6 @@
 <!DOCTYPE html>
     <html>
         <head>
-            <style>
-               .div-center {
-                    width: 400px;
-                    height: 400px;
-                    background-color: #fff;
-                    position: absolute;
-                    left: 0;
-                    right: 0;
-                    top: 0;
-                    bottom: 0;
-                    margin: auto;
-                    max-width: 100%;
-                    max-height: 100%;
-                    overflow: auto;
-                    padding: 1em 2em;
-                    border: 2px solid #ccc;
-                    display: table;
-                    border-radius: 15px;
-                }
-
-                .register-center {
-                    width: 600px;
-                    height: 400px;
-                    background-color: #fff;
-                    position: absolute;
-                    left: 0;
-                    right: 0;
-                    top: 0;
-                    bottom: 0;
-                    margin: auto;
-                    max-width: 100%;
-                    max-height: 100%;
-                    overflow: auto;
-                    padding: 1em 2em;
-                    border: 2px solid #ccc;
-                    display: table;
-                    border-radius: 15px;
-                }
-            </style>
 
              <!-- Required meta tags -->
             <meta charset="utf-8">
@@ -51,7 +12,6 @@
             {% endblock %}
             
         </head>
-
         <body>
                 {% block navbar%}
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -79,11 +39,15 @@
                                     <a class='nav-link' href="{% url 'tickets' %}">Submit Ticket</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class='nav-link' href="/yettobemade">Deposit or Withdraw</a></li> 
+                                    <a class='nav-link' href="/yettobemade">Deposit or Withdraw</a></li>
                                 </li>
                                 <li class="nav-item">
-                                    <a class='nav-link' href="{% url 'previousTrades' %}">View Trades</a></li> 
+                                    <a class='nav-link' href="{% url 'previousTrades' %}">View Trades</a></li>
                                 </li>
+                                <li class="nav-item">
+                                    <a class='nav-link' href="{% url 'personal_info' %}">Personal Information</a>
+                                </li>
+
                                 {% block Logout %}
                                 <li>
                                     <button class='btn btn-primary' id="'logout" onclick="leave()">Logout</button>

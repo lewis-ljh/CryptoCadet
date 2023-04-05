@@ -8,6 +8,8 @@ NewEnv
 *.so
 
 # Distribution / packaging
+NewEnv/
+.idea
 .Python
 build/
 develop-eggs/
