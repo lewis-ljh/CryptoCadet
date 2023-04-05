@@ -34,9 +34,9 @@ def BuyAndSell(response):
                         coins.save()
                         break
 
-                return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.all(), "found":True})
+                return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.filter(user=getUser(response)), "found":True})
             else:
-                return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.all(), "found":False})
+                return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.filter(user=getUser(response)), "found":False})
             
 
 
@@ -60,10 +60,10 @@ def BuyAndSell(response):
                 if not owned:
                     ownedCoin = OwnedCoin.objects.create(user=getUser(response), coinName=coinName, amount=float(response.POST.get("HowMuch"))) 
 
-                return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.all(), "found":True})
+                return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.filter(user=response.user), "found":True})
             else:
-                return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.all(), "found":False})
-    return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.all(), "found":True})
+                return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.filter(user=response.user), "found":False})
+    return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.filter(user=response.user), "found":True})
 
 def previousTrades(response):
     trades = Order.objects.filter(user=response.user)
