@@ -1,5 +1,4 @@
 {% extends "main/base.html" %}
-
 {% block content %}
     <table class='table' id="ticketList">
         <thead>
@@ -26,14 +25,17 @@
         </tbody>
     </table>
 
-
+{% load crispy_forms_tags %}
+<div class="form-group">
     <form method="post">
-        {% csrf_token %}  
-        
-        {{formset.as_p}}
-
-        <button type="submit">Submit</button>
+      {% csrf_token %} 
+      {{ form|crispy }} 
+      <div class="form-group">
+        {{ formset.as_p }}
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+  </div>
 
 
 {% endblock %}

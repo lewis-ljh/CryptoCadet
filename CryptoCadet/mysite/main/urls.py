@@ -22,3 +22,4 @@ urlpatterns = [
     path("previousTrades", views.previousTrades, name="previousTrades"),
     path("exam/", EView.take_quiz, name="exam"),
 ]
+ 

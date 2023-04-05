@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic.base import View
+from django.views.generic import CreateView
 
 from .APIManager import *
 from .models import Coin, Address, Profile
@@ -14,6 +15,7 @@ from django.contrib.auth.models import User
 
 from .models import Ticket
 from django.forms import modelformset_factory
+from .forms import TicketForm
 
 # Create your views here.
 
@@ -122,23 +124,23 @@ def cryptoList(response):
     return render(response, "main/cryptoList.html" ,{"coins":coins})
 
 def tickets(response):
-
     TicketFormSet = modelformset_factory(Ticket, fields=('title', 'query'))
-    # queryset = Ticket.objects.filter(__name__.startswith('0'))
     if response.method == 'POST':
         formset = TicketFormSet(response.POST, response.FILES, queryset=Ticket.objects.none())
         if formset.is_valid():
             print(response)
             formset.save()
-
     else:
         formset = TicketFormSet(queryset=Ticket.objects.none())
-
     # print(response.user)
     try:
         tickets = Ticket.objects.all()
     except Ticket.DoesNotExist:
         tickets = None
-
-
     return render(response, "main/tickets.html", {'formset': formset, 'list': tickets})
+
+class AddPostView(CreateView):
+    model = Ticket
+    form_class = TicketForm
+    template_name = 'main/tickets.html'
+    
