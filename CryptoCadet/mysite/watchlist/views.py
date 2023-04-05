@@ -19,4 +19,4 @@ def watchList(response):
         items = WatchCoin.objects.all().filter(user=response.user)
     except WatchCoin.DoesNotExist:
         items = None
-    return render(response, "watchlist/watchlist.html" ,{"items":items , "form":form})
+    return render(response, "watchlist/watchlist.html" ,{"items":items , "form":form}) 
