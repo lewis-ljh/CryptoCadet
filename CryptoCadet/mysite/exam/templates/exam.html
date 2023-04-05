@@ -1,5 +1,5 @@
 {% extends "main/base.html" %}
-
+{% load crispy_forms_tags %}
   <head>
     <title>Investment Quiz</title>
     <link rel="stylesheet" href="style.css">
@@ -64,8 +64,9 @@
             <input type="radio" name="q3" value="c">
             c. Investing in a mutual fund
         </label><br><br>
-      
-      <input type="submit" value="Submit">
+        
+       
+      <input type="submit" value="Submit" class="btn btn-primary btn-lg">
     </form>
     
     <div id="results"></div>
