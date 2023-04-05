@@ -12,7 +12,6 @@ urlpatterns = [
     path("home/", views.home, name="home"),
     path("BuyAndSell/", views.BuyAndSell, name="BuyAndSell"),
     path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
-
     path("log-out/", views.logout, name="log-out"),
     path("cryptoList/", views.cryptoList, name="CryptoList"),
     path("tickets/", views.tickets, name="tickets"),
