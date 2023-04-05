@@ -1,6 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
+from django.views.generic.base import View
+
 from .APIManager import *
+from .models import Coin, Address, Profile
+
+
 from .models import Coin, Order, OwnedCoin
 from datetime import datetime
 from django.contrib.auth.models import User
@@ -13,13 +18,39 @@ from django.forms import modelformset_factory
 # Create your views here.
 
 def home(response):
-    return render(response, "main/home.html", {"name":"Test"})
+    return render(response, "main/home.html", {"name": "Test"})
+
+
+class ViewPersonalInformation(View):
+    template_name = "main/personal_info.html"
+
+    def get(self, request):
+        try:
+            profile = Profile.objects.get(user=request.user)
+            address = Address.objects.filter(user=request.user).first()
+            context = {
+                "first_name": request.user.first_name,
+                "last_name": request.user.last_name,
+                "address": address,
+                "phone_number": profile.phone_number,
+                "account_balance": profile.account_balance,
+            }
+        except Profile.DoesNotExist:
+            context = {
+                "first_name": request.user.first_name,
+                "last_name": request.user.last_name,
+                "address": None,
+                "phone_number": None,
+                "account_balance": None,
+            }
+        return render(request, self.template_name, context)
+
 
 
 def BuyAndSell(response):
     def getUser(request):
         return request.user
-    
+
     coinName = response.POST.get("BuyOrSell")
     if response.method=="POST":
         if response.POST.get("sell"):
@@ -37,7 +68,7 @@ def BuyAndSell(response):
                 return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.all(), "found":True})
             else:
                 return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.all(), "found":False})
-            
+
 
 
             
@@ -56,9 +87,9 @@ def BuyAndSell(response):
                         coins.amount = coins.amount + float(response.POST.get("HowMuch"))
                         coins.save()
                         break
-                
+
                 if not owned:
-                    ownedCoin = OwnedCoin.objects.create(user=getUser(response), coinName=coinName, amount=float(response.POST.get("HowMuch"))) 
+                    ownedCoin = OwnedCoin.objects.create(user=getUser(response), coinName=coinName, amount=float(response.POST.get("HowMuch")))
 
                 return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.all(), "found":True})
             else:
@@ -71,10 +102,12 @@ def previousTrades(response):
 
 
 
+
 def logout(response):
     return render(response, "main/log-out.html")
 
-#Load the page for viewing coins -> when loading loop though all coins in DB and update price from API
+
+# Load the page for viewing coins -> when loading loop though all coins in DB and update price from API
 def cryptoList(response):
     coins = Coin.objects.all()
     for coin in coins:
@@ -82,7 +115,7 @@ def cryptoList(response):
         #find each coin in the api return
         found =  next(item for item in dict if item["symbol"] == coin.ticker)
         price = found['price']
-        #set price and save it 
+        # set price and save it
         coin.price = price
         coin.save()
         #render crytpo list
@@ -107,5 +140,5 @@ def tickets(response):
     except Ticket.DoesNotExist:
         tickets = None
 
-    
+
     return render(response, "main/tickets.html", {'formset': formset, 'list': tickets})
