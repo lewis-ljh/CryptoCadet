@@ -67,13 +67,8 @@ def BuyAndSell(response):
 
                 return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.filter(user=getUser(response)), "found":True})
             else:
-<<<<<<< HEAD
                 return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.filter(user=getUser(response)), "found":False})
             
-=======
-                return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.all(), "found":False})
-
->>>>>>> d5a680be1abe25aaa32e96f2c1ae893c4e1e4bcc
 
 
             
