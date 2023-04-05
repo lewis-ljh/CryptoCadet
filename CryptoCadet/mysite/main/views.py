@@ -96,7 +96,7 @@ def tickets(response):
         formset = TicketFormSet(response.POST, response.FILES, queryset=Ticket.objects.none())
         if formset.is_valid():
             print(response)
-            #formset.save()
+            formset.save()
 
     else:
         formset = TicketFormSet(queryset=Ticket.objects.none())
