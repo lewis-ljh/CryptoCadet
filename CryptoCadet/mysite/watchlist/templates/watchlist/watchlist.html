@@ -2,23 +2,23 @@
 
 {%block content%}
 <h1>This is Watchlist</h1>
+{{item}}
 <table class="table">
     <thead>
         <tr>
           <th scope="col">Coin</th>
           <th scope="col">Ticker</th>
           <th scope="col">Price</th>
-          <th scope="col">Icon</th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
          {% for item in items %}
             <tr>
-                
                 <th>{{item.coin.coinName}}</th>
                 <td>{{item.coin.ticker}}</td>
                 <td>{{item.coin.price}}</td>
-                <td>?</td>
+                <td><a href="{% url 'deleteItem' item.id %}" class="btn btn-danger">delete</a></td>
             </tr>
          {% endfor %} 
       </tbody>
