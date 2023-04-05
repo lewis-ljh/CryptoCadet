@@ -93,25 +93,19 @@ def tickets(response):
     TicketFormSet = modelformset_factory(Ticket, fields=('title', 'query'))
     # queryset = Ticket.objects.filter(__name__.startswith('0'))
     if response.method == 'POST':
-        formset = TicketFormSet(response.POST, response.FILES)
+        formset = TicketFormSet(response.POST, response.FILES, queryset=Ticket.objects.none())
         if formset.is_valid():
+            print(response)
             formset.save()
 
     else:
-        formset = TicketFormSet()
+        formset = TicketFormSet(queryset=Ticket.objects.none())
 
-    print(formset)
+    # print(response.user)
+    try:
+        tickets = Ticket.objects.all()
+    except Ticket.DoesNotExist:
+        tickets = None
 
-    # queryset = Author.objects.filter(name__startswith='O')
-    # if request.method == "POST":
-    #     formset = AuthorFormSet(request.POST, request.FILES,queryset=queryset,)
-    #     if formset.is_valid():
-    #         formset.save()
-    #         # Do something.
-    # else:
-    #     formset = AuthorFormSet(queryset=queryset)
-
-
-
-
-    return render(response, "main/tickets.html", {'formset': formset})
+    
+    return render(response, "main/tickets.html", {'formset': formset, 'list': tickets})

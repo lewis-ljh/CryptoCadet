@@ -1,14 +1,39 @@
 {% extends "main/base.html" %}
 
 {% block content %}
+    <table class='table' id="ticketList">
+        <thead>
+            <tr>
+            <th scope="col">User</th>
+            <th scope="col">Title</th>
+            <th scope="col">Query</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if list %}
+                {% for item in list %}
+                    <tr>
+                        <td>{{item.user}}</td>
+                        <td>{{item.title}}</td>
+                        <td>{{item.query}}</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                    <tr>
+                        <td>No Tickets avilable</td>
+                    </tr>
+            {% endif %}
+        </tbody>
+    </table>
 
-<form method="post">
-    {% csrf_token %}  
-    
-    {{formset}}
 
-    <button type="submit">Submit</button>
-</form>
+    <form method="post">
+        {% csrf_token %}  
+        
+        {{formset.as_p}}
+
+        <button type="submit">Submit</button>
+    </form>
 
 
 {% endblock %}
