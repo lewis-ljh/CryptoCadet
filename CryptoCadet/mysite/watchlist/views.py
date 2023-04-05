@@ -20,3 +20,8 @@ def watchList(response):
     except WatchCoin.DoesNotExist:
         items = None
     return render(response, "watchlist/watchlist.html" ,{"items":items , "form":form}) 
+
+def deleteItem(request,item_id):
+    item = WatchCoin.objects.all().filter(id=item_id)
+    item.delete()
+    return redirect("/watchlist")

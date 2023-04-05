@@ -2,6 +2,7 @@
 
 {%block content%}
 <h1>This is Watchlist</h1>
+{{item}}
 <table class="table">
     <thead>
         <tr>
@@ -14,11 +15,10 @@
       <tbody>
          {% for item in items %}
             <tr>
-                
                 <th>{{item.coin.coinName}}</th>
                 <td>{{item.coin.ticker}}</td>
                 <td>{{item.coin.price}}</td>
-                <td>?</td>
+                <td><a href="{% url 'deleteItem' item.id %}" class="btn btn-danger">delete</a></td>
             </tr>
          {% endfor %} 
       </tbody>

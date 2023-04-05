@@ -19,6 +19,8 @@ urlpatterns = [
     path("register/", RView.register, name="register"),
     path('FillPersonalInfo/<int:user_id>/', RView.personal_info, name='personal_info'),
     path("watchlist/", wlv.watchList, name="watchlist"),
+    path("deleteItem/<int:item_id>/", wlv.deleteItem,name="deleteItem"),
     path("previousTrades", views.previousTrades, name="previousTrades"),
     path("exam/", EView.take_quiz, name="exam"),
+
 ]
