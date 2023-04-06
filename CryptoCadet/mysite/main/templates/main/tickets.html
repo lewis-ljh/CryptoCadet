@@ -26,16 +26,13 @@
     </table>
 
 {% load crispy_forms_tags %}
-<div class="form-group">
+<div class="col-md-8">
     <form method="post">
-      {% csrf_token %} 
-      {{ form|crispy }} 
-      <div class="form-group">
-        {{ formset.as_p }}
+      {% csrf_token %}
+      <div >
+        {{formset|crispy}}
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
-
-
 {% endblock %}

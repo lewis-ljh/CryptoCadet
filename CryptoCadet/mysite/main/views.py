@@ -15,7 +15,7 @@ from django.contrib.auth.models import User
 
 from .models import Ticket
 from django.forms import modelformset_factory
-from .forms import TicketForm
+
 
 # Create your views here.
 
@@ -139,8 +139,5 @@ def tickets(response):
         tickets = None
     return render(response, "main/tickets.html", {'formset': formset, 'list': tickets})
 
-class AddPostView(CreateView):
-    model = Ticket
-    form_class = TicketForm
-    template_name = 'main/tickets.html'
+
     
