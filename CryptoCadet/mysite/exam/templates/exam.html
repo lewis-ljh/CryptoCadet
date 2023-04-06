@@ -64,8 +64,83 @@
             <input type="radio" name="q3" value="c">
             c. Investing in a mutual fund
         </label><br><br>
+
+      <h2>Question 4</h2>
+          <p>What is a mutual fund?</p>
+        <label>
+          <input type="radio" name="q4" value="a">
+          a. An investment that provides guaranteed returns
+        </label><br>
+
+        <label>
+        <input type="radio" name="q4" value="b">
+          b. An investment that pools money from multiple investors and invests in stocks, bonds, or other assets
+        </label><br>
+        <label>
+          <input type="radio" name="q4" value="c">
+          c. A type of bond that pays a fixed interest rate
+        </label><br><br>
+      
+      <h2>Question 5</h2>
+        <p>What is the difference between a traditional IRA and a Roth IRA?</p>
+        <label>
+          <input type="radio" name="q5" value="a">
+          a. Traditional IRA contributions are tax-deductible, while Roth IRA contributions are not
+        </label><br>
+        <label>
+          <input type="radio" name="q5" value="b">
+          b. Traditional IRA distributions are tax-free, while Roth IRA distributions are not
+        </label>
+
         
-       
+        <h2>Question 6</h2>
+        <p>What is Crypto Currency?</p>
+        <label>
+            <input type="radio" name="q6" value="a">
+            a. A physical currency used for online transactions
+        </label><br>
+
+        <label>
+            <input type="radio" name="q6" value="b">
+            b. A type of stock traded on the stock market
+        </label><br>
+
+        <label>
+            <input type="radio" name="q6" value="c">
+            c.  A digital or virtual currency that uses cryptography for security
+        </label><br><br>
+
+        <h2>Question 7</h2>
+          <p>What is Bitcoin?</p>
+        <label>
+          <input type="radio" name="q7" value="a">
+          a. A type of stock
+        </label><br>
+
+        <label>
+        <input type="radio" name="q7" value="b">
+          b.A physical currency used for online transactions
+        </label><br>
+        <label>
+          <input type="radio" name="q7" value="c">
+          c. A digital or virtual currency that uses cryptography for security
+        </label><br><br>
+      
+      <h2>Question 8</h2>
+        <p>What is a blockchain?</p>
+        <label>
+          <input type="radio" name="q8" value="a">
+          a. A physical chain made of blocks
+        </label><br>
+        <label>
+          <input type="radio" name="q8" value="b">
+          b. A decentralized, digital ledger of transactions
+        </label><br>
+        <label>
+          <input type="radio" name="q8" value="c">
+          b. A centralized, physical ledger of transactions
+        </label><br><br>
+        
       <input type="submit" value="Submit" class="btn btn-primary btn-lg">
     </form>
     
@@ -75,13 +150,13 @@
         const quizForm = document.getElementById('quiz-form');
         const resultsDiv = document.getElementById('results');
 
-        const correctAnswers = ['a', 'c', 'b'];
+        const correctAnswers = ['a', 'c', 'b', 'b', 'a','c','c','b'];
 
         quizForm.addEventListener('submit', (event) => {
         event.preventDefault();
         
         let score = 0;
-        const userAnswers = [quizForm.q1.value, quizForm.q2.value, quizForm.q3.value];
+        const userAnswers = [quizForm.q1.value, quizForm.q2.value, quizForm.q3.value,quizForm.q4.value, quizForm.q5.value, quizForm.q6.value,quizForm.q7.value,quizForm.q8.value];
         
         userAnswers.forEach((answer, index) => {
             if (answer === correctAnswers[index]) {
