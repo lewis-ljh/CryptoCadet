@@ -13,7 +13,7 @@ class Coin(models.Model):
 
 class Ticket(models.Model):
     num = models.AutoField(primary_key=True)
-    user =  models.CharField(max_length=200, null=True, blank=True)
+    user =  models.ForeignKey(User, on_delete=models.CASCADE, default=None)
     title = models.CharField(max_length=200)
     query = models.CharField(max_length=500)
 

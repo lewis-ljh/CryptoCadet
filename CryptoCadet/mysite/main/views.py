@@ -127,12 +127,13 @@ def tickets(response):
     TicketFormSet = modelformset_factory(Ticket, fields=('title', 'query'))
     if response.method == 'POST':
         formset = TicketFormSet(response.POST, response.FILES, queryset=Ticket.objects.none())
-        if formset.is_valid():
-            print(response)
-            formset.save()
+        title_text = response.POST.get("form-0-title")
+        query_text = response.POST.get("form-0-query")
+
+        if formset.is_valid() and title_text != "" and query_text != "": 
+            ticket = Ticket.objects.create(user=response.user, title=title_text, query=query_text)
     else:
         formset = TicketFormSet(queryset=Ticket.objects.none())
-    # print(response.user)
     try:
         tickets = Ticket.objects.all()
     except Ticket.DoesNotExist:
