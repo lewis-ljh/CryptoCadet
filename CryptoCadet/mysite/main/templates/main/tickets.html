@@ -26,13 +26,35 @@
     </table>
 
 {% load crispy_forms_tags %}
-<div class="col-md-8">
-    <form method="post">
-      {% csrf_token %}
-      <div >
-        {{formset|crispy}}
+<div class="container">
+    <div class="row justify-content-left">
+      <div class="col-md-8">
+        <div class="card">
+          
+          <div class="card-body">
+            <form method="post" class="form-group">
+              {% csrf_token %}
+
+              {{formset|crispy}}
+
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+    </div>
   </div>
+
+<style>
+    .container {
+    margin-top: 50px;
+    margin-left: 0;
+    
+    }
+    .card-header {
+    font-weight: bold;
+    font-size: 1.2em;
+    }
+</style>
+
 {% endblock %}
