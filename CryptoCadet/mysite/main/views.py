@@ -124,6 +124,14 @@ def cryptoList(response):
     return render(response, "main/cryptoList.html" ,{"coins":coins})
 
 def tickets(response):
+    try:
+        tickets = Ticket.objects.all()
+    except Ticket.DoesNotExist:
+        tickets = None
+    return render(response, "main/tickets.html", {'list': tickets})
+
+
+def create_ticket(response):
     TicketFormSet = modelformset_factory(Ticket, fields=('title', 'query'))
     if response.method == 'POST':
         formset = TicketFormSet(response.POST, response.FILES, queryset=Ticket.objects.none())
@@ -132,13 +140,9 @@ def tickets(response):
 
         if formset.is_valid() and title_text != "" and query_text != "": 
             ticket = Ticket.objects.create(user=response.user, title=title_text, query=query_text)
+            return tickets(response)
     else:
         formset = TicketFormSet(queryset=Ticket.objects.none())
-    try:
-        tickets = Ticket.objects.all()
-    except Ticket.DoesNotExist:
-        tickets = None
-    return render(response, "main/tickets.html", {'formset': formset, 'list': tickets})
-
+    return render(response, "main/create-ticket.html", {'formset': formset, })
 
     
