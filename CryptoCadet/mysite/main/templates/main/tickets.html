@@ -1,34 +1,68 @@
 {% extends "main/base.html" %}
 {% block content %}
-    <table class='table table-striped' id="ticketList">
-        <thead>
-            <tr>
-              <th><h4>Tickets sent</h4></th>
-              <th><a class="btn btn-primary " href="{% url 'create-ticket' %}" role="button">Create a Ticket</a></th>
-            </tr>
-            <tr>
-            <th scope="col">User</th>
-            <th scope="col">Title</th>
-            <th scope="col">Query</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% if list %}
-                {% for item in list %}
+<div class="row h-100 ">
+    <!-- Side nav -->
+    <div class="col-sm-2 bg-dark text-light d-none d-lg-flex" id="navbarText">
+                <div class="side-nav">
+                  <ul class="navbar-nav ml-auto">
+                          <li class="nav-item">
+                              <a class='nav-link' href="{% url 'CryptoList' %}">Exchange List</a>
+                          </li>   
+                          <li class="nav-item">
+                              <a class='nav-link' href="{% url 'watchlist' %}">Watchlist</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class='nav-link' href="{% url 'exam' %}">Beginner Exam/Revision</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class='nav-link' href="{% url 'tickets' %}">Submit Ticket</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class='nav-link' href="/yettobemade">Deposit or Withdraw</a></li>
+                          </li>
+                          <li class="nav-item">
+                              <a class='nav-link' href="{% url 'previousTrades' %}">View Trades</a></li>
+                          </li>
+                          <li class="nav-item">
+                              <a class='nav-link' href="{% url 'personal_info' %}">Personal Information</a>
+                          </li>
+                  </ul>
+                </div>
+          </div>
+          <!-- Main Content goes in here -->
+          <div class="col bg-light w-100">
+            <table class='table table-striped' id="ticketList">
+                <thead>
                     <tr>
-                        <td>{{item.user}}</td>
-                        <td>{{item.title}}</td>
-                        <td>{{item.query}}</td>
+                      <th><h4>Tickets sent</h4></th>
+                      <th><a class="btn btn-primary " href="{% url 'create-ticket' %}" role="button">Create a Ticket</a></th>
                     </tr>
-                {% endfor %}
-            {% else %}
                     <tr>
-                        <td>No Tickets avilable</td>
+                    <th scope="col">User</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Query</th>
                     </tr>
-            {% endif %}
-        </tbody>
-    </table>
-
+                </thead>
+                <tbody>
+                    {% if list %}
+                        {% for item in list %}
+                            <tr>
+                                <td>{{item.user}}</td>
+                                <td>{{item.title}}</td>
+                                <td>{{item.query}}</td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                            <tr>
+                                <td>No Tickets avilable</td>
+                            </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        
+          </div>
+      </div>
+    
 
 
 {% endblock %}

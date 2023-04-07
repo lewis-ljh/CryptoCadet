@@ -6,44 +6,43 @@
 <head>
 </head>
 {% block content %}
+
 <body>
     {% if user.is_authenticated %}
-    <div class="row h-100 d-none d-lg-flex" id="navbarText">
+    <div class="row h-100 ">
         <!-- Side nav -->
-        <div class="col-sm-2 bg-dark text-light">
-              <div class="side-nav">
+        <div class="col-sm-2 bg-dark text-light d-none d-lg-flex" id="navbarText">
+            <div class="side-nav">
                 <ul class="navbar-nav ml-auto">
-                        <li class="nav-item d-block d-lg-none">
-                            <a class='nav-link' href="{% url 'CryptoList' %}">Exchange List</a>
-                        </li>   
-                        <li class="nav-item">
-                            <a class='nav-link' href="{% url 'watchlist' %}">Watchlist</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class='nav-link' href="{% url 'exam' %}">Beginner Exam/Revision</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class='nav-link' href="{% url 'tickets' %}">Submit Ticket</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class='nav-link' href="/yettobemade">Deposit or Withdraw</a></li>
-                        </li>
-                        <li class="nav-item">
-                            <a class='nav-link' href="{% url 'previousTrades' %}">View Trades</a></li>
-                        </li>
-                        <li class="nav-item">
-                            <a class='nav-link' href="{% url 'personal_info' %}">Personal Information</a>
-                        </li>
+                    <li class="nav-item">
+                        <a class='nav-link' href="{% url 'CryptoList' %}">Exchange List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class='nav-link' href="{% url 'watchlist' %}">Watchlist</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class='nav-link' href="{% url 'exam' %}">Beginner Exam/Revision</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class='nav-link' href="{% url 'tickets' %}">Submit Ticket</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class='nav-link' href="/yettobemade">Deposit or Withdraw</a></li>
+                    </li>
+                    <li class="nav-item">
+                        <a class='nav-link' href="{% url 'previousTrades' %}">View Trades</a></li>
+                    </li>
+                    <li class="nav-item">
+                        <a class='nav-link' href="{% url 'personal_info' %}">Personal Information</a>
+                    </li>
                 </ul>
-              </div>
+            </div>
         </div>
         <!-- Main Content goes in here -->
         <div class="col bg-light w-100">
-            
+            hello
         </div>
     </div>
-
-
     {% else %}
     <div class="jumbotron jumbotron-fluid bg-dark">
         <div class="container-fluid text-white pl-5">
@@ -52,17 +51,15 @@
             <p class="lead">The platform for learning and trading crypto. For Beginners and Experts!</p>
             <p>Get started to day!</p>
             <p class="lead">
-            
-            <a class="btn btn-primary btn-lg" href="{% url 'register' %}" role="button">Register</a>
+
+                <a class="btn btn-primary btn-lg" href="{% url 'register' %}" role="button">Register</a>
             </p>
         </div>
     </div>
     <div>
-        
+
     </div>
 
     {% endif %}
 </body>
 {% endblock %}
-
-   

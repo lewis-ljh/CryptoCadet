@@ -1,29 +1,63 @@
 {% extends "main/base.html" %}
 
 {% block content %}
-    <form method="post">
-        {% csrf_token %}
-        {{form.as_p}}    
-        <label for="BuyOrSell">What coin would you like to buy or sell, e.g. BTCUSDT</label><br>
-        <input type="text", name="BuyOrSell"><br>
-        <label for="HowMuch">How much of the coin would you like to buy or sell?</label><br>
-        <input type="number", step="0.0001" name="HowMuch"><br>
-
-        <button type="submit", name="buy", value="buy" class="btn btn-primary">Buy Coin</button>
-        <button type="submit", name="sell", value="sell" class="btn btn-primary">Sell Coin</button>
-
-    </form>
-
-    {% if not found %}
-        <p>Error, check values entered</p>
-    {% endif %}
-
-    <p>Owned Coins:</p>
-    {% for coin in coins %}
-        {% if coin.amount != 0%}
-        <p>{{coin.coinName}} --- {{coin.amount}}</p>
+<div class="row h-100 ">
+    <!-- Side nav -->
+    <div class="col-sm-2 bg-dark text-light d-none d-lg-flex" id="navbarText">
+          <div class="side-nav">
+            <ul class="navbar-nav ml-auto">
+                    <li class="nav-item ">
+                        <a class='nav-link' href="{% url 'CryptoList' %}">Exchange List</a>
+                    </li>   
+                    <li class="nav-item">
+                        <a class='nav-link' href="{% url 'watchlist' %}">Watchlist</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class='nav-link' href="{% url 'exam' %}">Beginner Exam/Revision</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class='nav-link' href="{% url 'tickets' %}">Submit Ticket</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class='nav-link' href="/yettobemade">Deposit or Withdraw</a></li>
+                    </li>
+                    <li class="nav-item">
+                        <a class='nav-link' href="{% url 'previousTrades' %}">View Trades</a></li>
+                    </li>
+                    <li class="nav-item">
+                        <a class='nav-link' href="{% url 'personal_info' %}">Personal Information</a>
+                    </li>
+            </ul>
+          </div>
+    </div>
+    <!-- Main Content goes in here -->
+    <div class="col bg-light w-100">
+        <form method="post">
+            {% csrf_token %}
+            {{form.as_p}}    
+            <label for="BuyOrSell">What coin would you like to buy or sell, e.g. BTCUSDT</label><br>
+            <input type="text", name="BuyOrSell"><br>
+            <label for="HowMuch">How much of the coin would you like to buy or sell?</label><br>
+            <input type="number", step="0.0001" name="HowMuch"><br>
+    
+            <button type="submit", name="buy", value="buy" class="btn btn-primary">Buy Coin</button>
+            <button type="submit", name="sell", value="sell" class="btn btn-primary">Sell Coin</button>
+    
+        </form>
+    
+        {% if not found %}
+            <p>Error, check values entered</p>
         {% endif %}
-    {% endfor %}
+    
+        <p>Owned Coins:</p>
+        {% for coin in coins %}
+            {% if coin.amount != 0%}
+            <p>{{coin.coinName}} --- {{coin.amount}}</p>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
 
     <!--
     {% for item in tickers %}
