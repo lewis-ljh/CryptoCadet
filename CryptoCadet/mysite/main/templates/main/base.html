@@ -37,7 +37,17 @@
                      border: 2px solid #ccc;
                      display: table;
                      border-radius: 15px;
+
+                    
                  }
+
+                .screen{
+                    height: 100vh;
+                }
+
+                .side-nav{
+                    padding: 1em;
+                }
              </style>
              <!-- Required meta tags -->
             <meta charset="utf-8">
@@ -60,28 +70,28 @@
                     <div class="collapse navbar-collapse" id="navbarText">
                          <ul class="navbar-nav ml-auto">
                             {% if user.is_authenticated %}
-                                <li class="nav-item">
+                                <li class="nav-item d-block d-lg-none">
                                     <a class='nav-link' href="{% url 'CryptoList' %}">Exchange List</a>
                                 </li>   
-                                <li class="nav-item">
+                                <li class="nav-item ">
                                     <a class='nav-link' href="{% url 'BuyAndSell' %}">Buy or Sell</a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item d-block d-lg-none">
                                     <a class='nav-link' href="{% url 'watchlist' %}">Watchlist</a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item d-block d-lg-none">
                                     <a class='nav-link' href="{% url 'exam' %}">Beginner Exam/Revision</a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item d-block d-lg-none">
                                     <a class='nav-link' href="{% url 'tickets' %}">Submit Ticket</a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item d-block d-lg-none">
                                     <a class='nav-link' href="/yettobemade">Deposit or Withdraw</a></li>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item d-block d-lg-none">
                                     <a class='nav-link' href="{% url 'previousTrades' %}">View Trades</a></li>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item d-block d-lg-none">
                                     <a class='nav-link' href="{% url 'personal_info' %}">Personal Information</a>
                                 </li>
 
@@ -103,13 +113,17 @@
                 {% endblock %}
 
                 
+
+                
                 {% if not user.is_authenticated %}   
                     {% block loginform %} {% endblock %}
                 {% endif %}
 
+                <div class="screen">
+                    {%block content %}
+                    {% endblock %}
+                </div>
                 
-                {%block content %}
-                {% endblock %}
 
              <!-- jQuery first, then Popper.js, then Bootstrap JS -->
             <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
