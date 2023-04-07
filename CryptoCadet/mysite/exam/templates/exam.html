@@ -9,38 +9,7 @@
        
 
 {%block content%}
-<div class="row h-100 ">
-  <!-- Side nav -->
-  <div class="col-sm-2 bg-dark text-light d-none d-lg-flex" id="navbarText">
-    <div class="side-nav">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class='nav-link' href="{% url 'CryptoList' %}">Exchange List</a>
-        </li>   
-        <li class="nav-item">
-          <a class='nav-link' href="{% url 'watchlist' %}">Watchlist</a>
-        </li>
-        <li class="nav-item">
-          <a class='nav-link' href="{% url 'exam' %}">Beginner Exam/Revision</a>
-        </li>
-        <li class="nav-item">
-          <a class='nav-link' href="{% url 'tickets' %}">Submit Ticket</a>
-        </li>
-        <li class="nav-item">
-            <a class='nav-link' href="/yettobemade">Deposit or Withdraw</a></li>
-        </li>
-        <li class="nav-item">
-            <a class='nav-link' href="{% url 'previousTrades' %}">View Trades</a></li>
-        </li>
-        <li class="nav-item">
-            <a class='nav-link' href="{% url 'personal_info' %}">Personal Information</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-  <!-- Main Content goes in here -->
-  <div class="col bg-light w-100">
-    <h1>Investment Quiz</h1>
+<h1>Investment Quiz</h1>
 
     <p>Test your knowledge about investment!</p>
 
@@ -176,8 +145,6 @@
     </form>
     
     <div id="results"></div>
-  </div>
-</div>
     
     <script>
         const quizForm = document.getElementById('quiz-form');
