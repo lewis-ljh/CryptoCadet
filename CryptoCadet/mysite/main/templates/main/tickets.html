@@ -35,8 +35,10 @@
                 <thead>
                     <tr>
                       <th><h4>Tickets sent</h4></th>
-                      <th><a class="btn btn-primary " href="{% url 'create-ticket' %}" role="button">Create a Ticket</a></th>
-                    </tr>
+                      <div class="btn-group" role="group" aria-label="Basic example">
+                <th><a class="btn btn-primary" href="{% url 'create-ticket' %}" role="button">Create a Ticket</a></th>
+                      </div>
+            </tr>
                     <tr>
                     <th scope="col">User</th>
                     <th scope="col">Title</th>
