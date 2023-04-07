@@ -1,29 +1,63 @@
 {% extends "main/base.html" %}
 
 {% block content %}
-    <table class="table">
-        <thead>
-            <tr>
-            <th scope="col">Coin</th>
-            <th scope="col">Price</th>
-            <th scope="col">Bought at</th>
-            <th scope="col">type</th>
-            <th scope="col">time</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for trade in trades %}
-                <tr>
-                    <th>{{trade.coinName}}</th>
-                    <td>{{trade.price}}</td>
-                    <td>?</td>
-                    <td>{{trade.type}}</td>
-                    <td>{{trade.time}}</td>
-                </tr>
-            {% endfor %} 
-        </tbody>
-    </table>
-
+<div class="row h-100 ">
+    <!-- Side nav -->
+    <div class="col-sm-2 bg-dark text-light d-none d-lg-flex" id="navbarText">
+                <div class="side-nav">
+                  <ul class="navbar-nav ml-auto">
+                          <li class="nav-item">
+                              <a class='nav-link' href="{% url 'CryptoList' %}">Exchange List</a>
+                          </li>   
+                          <li class="nav-item">
+                              <a class='nav-link' href="{% url 'watchlist' %}">Watchlist</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class='nav-link' href="{% url 'exam' %}">Beginner Exam/Revision</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class='nav-link' href="{% url 'tickets' %}">Submit Ticket</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class='nav-link' href="/yettobemade">Deposit or Withdraw</a></li>
+                          </li>
+                          <li class="nav-item">
+                              <a class='nav-link' href="{% url 'previousTrades' %}">View Trades</a></li>
+                          </li>
+                          <li class="nav-item">
+                              <a class='nav-link' href="{% url 'personal_info' %}">Personal Information</a>
+                          </li>
+                  </ul>
+                </div>
+          </div>
+          <!-- Main Content goes in here -->
+          <div class="col bg-light w-100">
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">Coin</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Bought at</th>
+                    <th scope="col">type</th>
+                    <th scope="col">time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for trade in trades %}
+                        <tr>
+                            <th>{{trade.coinName}}</th>
+                            <td>{{trade.price}}</td>
+                            <td>?</td>
+                            <td>{{trade.type}}</td>
+                            <td>{{trade.time}}</td>
+                        </tr>
+                    {% endfor %} 
+                </tbody>
+            </table>
+        
+         </div>
+</div>
+    
 
 
     <!--{% for trade in trades %}
