@@ -52,6 +52,16 @@
                             </div>
                             <button type="submit", name="buy", value="buy" class="btn btn-primary">Buy Coin</button>
                             <button type="submit", name="sell", value="sell" class="btn btn-primary">Sell Coin</button>
+                            {% if not found %}
+                                <p>Error, check values entered</p>
+                            {% endif %}
+
+                            <p class="card-header">Owned Coins</p>
+                            {% for coin in coins %}
+                                {% if coin.amount != 0%}
+                                <p>{{coin.coinName}} --- {{coin.amount}}</p>
+                                {% endif %}
+                            {% endfor %}
                     </form>
                 </div>
             </div>
@@ -64,22 +74,21 @@
 .container {
 margin-top: 50px;
 }
+.title{
+    font-weight: bold;
+    font-size: 1.2em;
+    
+}
+
 .card-header {
 font-weight: bold;
 font-size: 1.2em;
+text-align: center;
 }
 p{
     text-align: center;
 }
 </style>
-
-
-    <!--
-    {% for item in tickers %}
-        {% if item.symbol|slice:"-4:" == "USDT" %}
-            <p>{{ item.symbol }} ---- {{ item.price }}</p>
-        {% endif %}
-    {% endfor %} 
-    -->
+</div>  
 
 {% endblock %}
