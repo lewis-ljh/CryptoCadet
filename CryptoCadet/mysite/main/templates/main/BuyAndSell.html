@@ -1,18 +1,45 @@
 {% extends "main/base.html" %}
 
+
 {% block content %}
-    <form method="post">
-        {% csrf_token %}
-        {{form.as_p}}    
-        <label for="BuyOrSell">What coin would you like to buy or sell, e.g. BTCUSDT</label><br>
-        <input type="text", name="BuyOrSell"><br>
-        <label for="HowMuch">How much of the coin would you like to buy or sell?</label><br>
-        <input type="number", step="0.0001" name="HowMuch"><br>
+{% load crispy_forms_tags %}
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="BuyOrSell">Coin Type, e.g. BTCUSDT</label>
+                        <input type="text" class="form-control" name="BuyOrSell">
+                    </div>
+                    <div class="mb-3">
+                        <label for="HowMuch">Amount</label>
+                        <input type="number" class="form-control" name="HowMuch">
+                    </div>
+                    <button type="submit", name="buy", value="buy" class="btn btn-primary">Buy Coin</button>
+                    <button type="submit", name="sell", value="sell" class="btn btn-primary">Sell Coin</button>
+            </form>
+          </div>
+        
+      </div>
+    </div>
+  </div>
 
-        <button type="submit", name="buy", value="buy" class="btn btn-primary">Buy Coin</button>
-        <button type="submit", name="sell", value="sell" class="btn btn-primary">Sell Coin</button>
+<style>
+.container {
+margin-top: 50px;
+}
+.card-header {
+font-weight: bold;
+font-size: 1.2em;
+}
+p{
+    text-align: center;
+}
+</style>
 
-    </form>
 
     {% if not found %}
         <p>Error, check values entered</p>

@@ -2,27 +2,17 @@
 {% block content %}
 
 {% load crispy_forms_tags %}
-<div class="container">
-    <div class="row justify-content-left">
-      <div class="col-md-8">
         <div class="card">
-          
           <div class="card-body">
             <h4>Create Ticket</h4>
             <form method="post" class="form-group">
               {% csrf_token %}
-
               {{formset|crispy}}
-
               <button type="submit" class="btn btn-primary">Submit</button>
               <a class="btn btn-primary " href="{% url 'tickets' %}" role="button">Back</a>
             </form>
           </div>
-        
-      </div>
-    </div>
-  </div>
-
+        </div>
 
   <script>
     var title = document.getElementsByName('form-0-title');
