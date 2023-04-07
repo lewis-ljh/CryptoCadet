@@ -7,27 +7,32 @@
     <div class="row justify-content-center">
       <div class="col-md-8">
         <div class="card">
-          <div class="card-body">
-            <form method="post">
-                {% csrf_token %}
-                    <div class="mb-3">
-                        <label for="BuyOrSell">Coin Type, e.g. BTCUSDT</label>
-                        <input type="text" class="form-control" name="BuyOrSell">
-                    </div>
-                    <div class="mb-3">
-                        <label for="HowMuch">Amount</label>
-                        <input type="number" class="form-control" name="HowMuch">
-                    </div>
-                    <button type="submit", name="buy", value="buy" class="btn btn-primary">Buy Coin</button>
-                    <button type="submit", name="sell", value="sell" class="btn btn-primary">Sell Coin</button>
-            </form>
-          </div>
-        
+            <div class="card-header">Buy and Sell</div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="BuyOrSell">Coin Type, e.g. BTCUSDT</label>
+                                <input type="text" class="form-control" name="BuyOrSell">
+                            </div>
+                            <div class="mb-3">
+                                <label for="HowMuch">Amount</label>
+                                <input type="number" class="form-control" name="HowMuch">
+                            </div>
+                            <button type="submit", name="buy", value="buy" class="btn btn-primary">Buy Coin</button>
+                            <button type="submit", name="sell", value="sell" class="btn btn-primary">Sell Coin</button>
+                    </form>
+                </div>
+            </div>
+          </div>        
       </div>
     </div>
   </div>
 
 <style>
+.card-header{
+    text-align: center;
+}
 .container {
 margin-top: 50px;
 }
