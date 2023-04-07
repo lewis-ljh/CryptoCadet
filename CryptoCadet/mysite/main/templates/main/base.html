@@ -48,6 +48,10 @@
                 .side-nav{
                     padding: 1em;
                 }
+
+                .side-nav-link{
+                    color: #ccc;
+                }
              </style>
              <!-- Required meta tags -->
             <meta charset="utf-8">
@@ -121,14 +125,15 @@
                     {% block loginform %} {% endblock %}
                 {% endif %}
 
+                <!--Logged in dashboard -->
                 <div class="screen">
                     {% if user.is_authenticated %}
                         <div class="row h-100 ">
                             <!-- Side nav -->
-                            <div class="col-sm-2 bg-dark text-light d-none d-lg-flex" id="navbarText">
+                            <div class="col-sm-2 navbar-dark bg-dark d-none d-lg-flex" id="navbarText">
                                 <div class="side-nav">
                                     <ul class="navbar-nav ml-auto">
-                                        <li class="nav-item">
+                                        <li >
                                             <a class='nav-link' href="{% url 'CryptoList' %}">Exchange List</a>
                                         </li>
                                         <li class="nav-item">
@@ -137,9 +142,7 @@
                                         <li class="nav-item">
                                             <a class='nav-link' href="{% url 'exam' %}">Beginner Exam/Revision</a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class='nav-link' href="{% url 'tickets' %}">Submit Ticket</a>
-                                        </li>
+                                        
                                         <li class="nav-item">
                                             <a class='nav-link' href="/yettobemade">Deposit or Withdraw</a></li>
                                         </li>
@@ -148,6 +151,14 @@
                                         </li>
                                         <li class="nav-item">
                                             <a class='nav-link' href="{% url 'personal_info' %}">Personal Information</a>
+                                        </li>
+                                    </ul>
+                                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                                        <span>Support</span>
+                                    </h6>
+                                    <ul class="navbar-nav ml-auto">
+                                        <li class="nav-item">
+                                            <a class='nav-link' href="{% url 'tickets' %}">Submit Ticket</a>
                                         </li>
                                     </ul>
                                 </div>
