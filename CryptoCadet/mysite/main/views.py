@@ -115,7 +115,7 @@ def BuyAndSell(response):
 
 def previousTrades(response):
     trades = Order.objects.filter(user=response.user)
-    return render(response, "main/previousTrades.html", {"trades":trades})
+    return render(response, "main/previousTrades.html", {"trades":reversed(trades)})
 
 
 
