@@ -1,68 +1,35 @@
 {% extends "main/base.html" %}
 {% block content %}
-    <table class='table' id="ticketList">
-        <thead>
-            <tr>
-            <th scope="col">User</th>
-            <th scope="col">Title</th>
-            <th scope="col">Query</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% if list %}
-                {% for item in list %}
-                    <tr>
-                        <td>{{item.user}}</td>
-                        <td>{{item.title}}</td>
-                        <td>{{item.query}}</td>
-                    </tr>
-                {% endfor %}
-            {% else %}
-                    <tr>
-                        <td>No Tickets avilable</td>
-                    </tr>
-            {% endif %}
-        </tbody>
-    </table>
-
-{% load crispy_forms_tags %}
-<div class="container">
-    <div class="row justify-content-left">
-      <div class="col-md-8">
-        <div class="card">
-          
-          <div class="card-body">
-            <form method="post" class="form-group">
-              {% csrf_token %}
-
-              {{formset|crispy}}
-
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+<table class='table table-striped' id="ticketList">
+    <thead>
+        <tr>
+          <th><h4>Tickets sent</h4></th>
+          <div class="btn-group" role="group" aria-label="Basic example">
+    <th><a class="btn btn-primary" href="{% url 'create-ticket' %}" role="button">Create a Ticket</a></th>
           </div>
-        
-      </div>
-    </div>
-  </div>
+</tr>
+        <tr>
+        <th scope="col">User</th>
+        <th scope="col">Title</th>
+        <th scope="col">Query</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if list %}
+            {% for item in list %}
+                <tr>
+                    <td>{{item.user}}</td>
+                    <td>{{item.title}}</td>
+                    <td>{{item.query}}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+                <tr>
+                    <td>No Tickets avilable</td>
+                </tr>
+        {% endif %}
+    </tbody>
+</table>
 
-
-  <script>
-    var title = document.getElementsByName('form-0-title');
-    var query = document.getElementsByName('form-0-query');
-    title[0].setAttribute("required", "");
-    query[0].setAttribute("required", "");
-  </script>
-
-<style>
-    .container {
-    margin-top: 50px;
-    margin-left: 0;
-    
-    }
-    .card-header {
-    font-weight: bold;
-    font-size: 1.2em;
-    }
-</style>
 
 {% endblock %}

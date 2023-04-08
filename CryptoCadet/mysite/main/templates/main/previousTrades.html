@@ -1,29 +1,28 @@
 {% extends "main/base.html" %}
 
 {% block content %}
-    <table class="table">
-        <thead>
+<table class="table">
+    <thead>
+        <tr>
+        <th scope="col">Coin</th>
+        <th scope="col">Price</th>
+        <th scope="col">Bought at</th>
+        <th scope="col">type</th>
+        <th scope="col">time</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for trade in trades %}
             <tr>
-            <th scope="col">Coin</th>
-            <th scope="col">Price</th>
-            <th scope="col">Bought at</th>
-            <th scope="col">type</th>
-            <th scope="col">time</th>
+                <th>{{trade.coinName}}</th>
+                <td>{{trade.price}}</td>
+                <td>?</td>
+                <td>{{trade.type}}</td>
+                <td>{{trade.time}}</td>
             </tr>
-        </thead>
-        <tbody>
-            {% for trade in trades %}
-                <tr>
-                    <th>{{trade.coinName}}</th>
-                    <td>{{trade.price}}</td>
-                    <td>?</td>
-                    <td>{{trade.type}}</td>
-                    <td>{{trade.time}}</td>
-                </tr>
-            {% endfor %} 
-        </tbody>
-    </table>
-
+        {% endfor %} 
+    </tbody>
+</table>
 
 
     <!--{% for trade in trades %}

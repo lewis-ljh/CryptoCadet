@@ -5,26 +5,11 @@
 
 <head>
 </head>
-{% block content %}
+{% block banner %}
+
 <body>
-    {% if user.is_authenticated %}
-    <div class="jumbotron jumbotron-fluid bg-dark">
-        <div class="container-fluid text-white pl-5">
-            <h1 class="display-3">Learn And Trade</h1>
-            <h1 class="display-3">Crypto</h1>
-            <p class="lead">Place trades and get tutorials!</p>
-            <p class="lead">
-            <a class="btn btn-primary btn-lg mr-2" href="#" role="button">View Exchange</a>
-            <a class="btn btn-primary btn-lg" href="#" role="button">View Tutorials</a>
-            </p>
-        </div>
-    </div>
-    <div>
-
-    </div>
-
-
-    {% else %}
+    {% if not user.is_authenticated %}
+    
     <div class="jumbotron jumbotron-fluid bg-dark">
         <div class="container-fluid text-white pl-5">
             <h1 class="display-3">Learn And Trade</h1>
@@ -32,17 +17,15 @@
             <p class="lead">The platform for learning and trading crypto. For Beginners and Experts!</p>
             <p>Get started to day!</p>
             <p class="lead">
-            
-            <a class="btn btn-primary btn-lg" href="{% url 'register' %}" role="button">Register</a>
+
+                <a class="btn btn-primary btn-lg" href="{% url 'register' %}" role="button">Register</a>
             </p>
         </div>
     </div>
     <div>
-        
+
     </div>
 
     {% endif %}
 </body>
 {% endblock %}
-
-   
