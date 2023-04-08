@@ -50,26 +50,37 @@ class ViewPersonalInformation(View):
 
 
 def BuyAndSell(response):
-    def getUser(request):
-        return request.user
-
+    
+    currentUser = response.user
+    ownedCoins = OwnedCoin.objects.all()
     coinName = response.POST.get("BuyOrSell")
+    profile = Profile.objects.get(user = currentUser)
+    price = getPrice(coinName)
+
+    for coins in ownedCoins:
+        coins.price = getPrice(coins.coinName)
+        coins.save()
+
+
     if response.method=="POST":
         if response.POST.get("sell"):
-            if validateSell(coinName):
-                order = Order.objects.create(user=getUser(response), coinName=coinName, price=getPrice(coinName), type="sell", time=datetime.now())
+            
+
+            if validateSell(coinName, float(response.POST.get("HowMuch")), ownedCoins):
+                order = Order.objects.create(user=currentUser, coinName=coinName, price=price, type="sell", time=datetime.now())
                 order.save()
 
-                ownedCoins = OwnedCoin.objects.all()
                 for coins in ownedCoins:
-                    if getUser(response)==coins.user and coinName==coins.coinName:
+                    if currentUser==coins.user and coinName==coins.coinName:
                         coins.amount = coins.amount - float(response.POST.get("HowMuch"))
                         coins.save()
+                        profile.account_balance += float(response.POST.get("HowMuch"))*float(price)
+                        profile.save()
                         break
 
-                return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.filter(user=getUser(response)), "found":True})
+                return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.filter(user=currentUser), "found":True})
             else:
-                return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.filter(user=getUser(response)), "found":False})
+                return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.filter(user=currentUser), "found":False})
             
 
 
@@ -77,26 +88,30 @@ def BuyAndSell(response):
         if response.POST.get("buy"):
             coinName = response.POST.get("BuyOrSell")
 
-            if validateBuy(coinName):
-                order = Order.objects.create(user=getUser(response), coinName=coinName, price=getPrice(coinName), type="buy", time=datetime.now())
+            if validateBuy(currentUser, coinName, float(response.POST.get("HowMuch")), price):
+                order = Order.objects.create(user=currentUser, coinName=coinName, price=price, type="buy", time=datetime.now())
                 order.save()
 
-                ownedCoins = OwnedCoin.objects.all()
                 owned = False
                 for coins in ownedCoins:
-                    if getUser(response)==coins.user and coinName==coins.coinName:
+                    if currentUser==coins.user and coinName==coins.coinName:
                         owned = True
                         coins.amount = coins.amount + float(response.POST.get("HowMuch"))
                         coins.save()
+                        profile.account_balance -= float(response.POST.get("HowMuch"))*float(price)
+                        profile.save()
                         break
 
                 if not owned:
-                    ownedCoin = OwnedCoin.objects.create(user=getUser(response), coinName=coinName, amount=float(response.POST.get("HowMuch")))
+                    ownedCoin = OwnedCoin.objects.create(user=currentUser, coinName=coinName, amount=float(response.POST.get("HowMuch")))
 
-                return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.filter(user=response.user), "found":True})
+                return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.filter(user=currentUser), "found":True})
             else:
-                return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.filter(user=response.user), "found":False})
-    return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.filter(user=response.user), "found":True})
+                return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.filter(user=currentUser), "found":False})
+            
+
+    return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.filter(user=currentUser), "found":True})
+
 
 def previousTrades(response):
     trades = Order.objects.filter(user=response.user)

@@ -28,7 +28,7 @@ class OwnedCoin(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     coinName = models.CharField(max_length=10)
     amount = models.FloatField()
-    price = models.FloatField(max_length=5, null=True)
+    price = models.FloatField(max_length=10, null=True)
 
 
 class Profile(models.Model):
