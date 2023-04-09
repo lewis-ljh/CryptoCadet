@@ -22,6 +22,7 @@ urlpatterns = [
     path("deleteItem/<int:item_id>/", wlv.deleteItem,name="deleteItem"),
     path("previousTrades", views.previousTrades, name="previousTrades"),
     path("exam/", EView.take_quiz, name="exam"),
+    path ('exam/results/', EView.result, name='results'),
     path("create-ticket", views.create_ticket, name='create-ticket')
 
 ]

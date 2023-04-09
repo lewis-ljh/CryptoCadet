@@ -27,7 +27,8 @@ def take_quiz(request):
     if request.method == 'POST':
         HttpResponse("thanks!")
 
-
+def result(response):
+    return render(response, 'resultPage.html')
 
 
 def detail(request): 

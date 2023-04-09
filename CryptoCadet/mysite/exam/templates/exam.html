@@ -13,7 +13,7 @@
 
     <p>Test your knowledge about investment!</p>
 
-    <form id="quiz-form" action='resultPage.html'>
+    <form id="quiz-form" action='#'>
       <h2>Question 1</h2>
         <p>What is the definition of ROI?</p>
          <label>
@@ -169,7 +169,7 @@
         var result;
         sessionStorage.setItem ('result',`<h2>Your Score: ${score}/${correctAnswers.length}</h2>`);
         console.log(`we got this far!`);
-        window.location.href = quizForm.action;
+        window.location.href = "{% url 'results' %}";
         });
 
        
