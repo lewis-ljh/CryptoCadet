@@ -1,0 +1,20 @@
+{% extends "main/base.html" %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<head>
+    <title> results </title>
+</head>
+
+{%block content%}
+    <body>
+        <div id="ans"></div>
+    </body>
+
+    <script>
+        const ansDiv = document.getElementById('ans');
+
+        ansDiv.innerHTML =  sessionStorage.getItem('result');
+    </script>
+{%endblock%}
+
