@@ -13,7 +13,7 @@
 
     <p>Test your knowledge about investment!</p>
 
-    <form id="quiz-form">
+    <form id="quiz-form" action='resultPage.html'>
       <h2>Question 1</h2>
         <p>What is the definition of ROI?</p>
          <label>
@@ -141,7 +141,8 @@
           b. A centralized, physical ledger of transactions
         </label><br><br>
         
-      <input type="submit" value="Submit" class="btn btn-primary btn-lg">
+      <input type="submit" value="Submit" class="btn btn-primary btn-lg" onclick>
+
     </form>
     
     <div id="results"></div>
@@ -153,18 +154,25 @@
         const correctAnswers = ['a', 'c', 'b', 'b', 'a','c','c','b'];
 
         quizForm.addEventListener('submit', (event) => {
-        event.preventDefault();
-        
-        let score = 0;
-        const userAnswers = [quizForm.q1.value, quizForm.q2.value, quizForm.q3.value,quizForm.q4.value, quizForm.q5.value, quizForm.q6.value,quizForm.q7.value,quizForm.q8.value];
-        
-        userAnswers.forEach((answer, index) => {
-            if (answer === correctAnswers[index]) {
-            score += 1;
-            }
+          event.preventDefault();
+          
+          let score = 0;
+          const userAnswers = [quizForm.q1.value, quizForm.q2.value, quizForm.q3.value,quizForm.q4.value, quizForm.q5.value, quizForm.q6.value,quizForm.q7.value,quizForm.q8.value];
+          
+          userAnswers.forEach((answer, index) => {
+              if (answer === correctAnswers[index]) {
+              score += 1;
+              }
         });
-        
-        resultsDiv.innerHTML = `<h2>Your Score: ${score}/${correctAnswers.length}</h2>`;
+
+     
+        var result;
+        sessionStorage.setItem ('result',`<h2>Your Score: ${score}/${correctAnswers.length}</h2>`);
+        console.log(`we got this far!`);
+        window.location.href = quizForm.action;
         });
+
+       
     </script>
 {%endblock%}
+
