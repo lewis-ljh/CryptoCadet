@@ -4,7 +4,6 @@ Software Engineering Project
 - Lewis Hoggarth
 - Tajul Ahmed
 - Cameron Jules
-- Fabio Kreka
 - Faiza Maghrabi
 - Michal Staszewski
 - Fareza Rahman Enus
