@@ -1,6 +1,7 @@
 from binance import Client
 from .models import Profile, OwnedCoin
 
+        
 
 def createClient():
     APIKEY = "g0t3354JYusdR55nj4kvzYFVM3iZ5jHZLD4GdPER0PyMNI8nxv9EBWsnNrgBuAq5"
