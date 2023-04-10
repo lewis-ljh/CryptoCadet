@@ -2,7 +2,8 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic.base import View
-
+from django.views.generic import CreateView
+from django.urls import reverse
 from .APIManager import *
 from .forms import DepositWithdrawForm, DepositForm, WithdrawForm
 from .models import Coin, Address, Profile
@@ -16,6 +17,7 @@ from django.contrib.auth.models import User
 
 from .models import Ticket
 from django.forms import modelformset_factory
+
 
 # Create your views here.
 
@@ -50,26 +52,40 @@ class ViewPersonalInformation(View):
 
 
 def BuyAndSell(response):
-    def getUser(request):
-        return request.user
 
+    currentUser = response.user
+    ownedCoins = OwnedCoin.objects.all()
     coinName = response.POST.get("BuyOrSell")
+    profile = Profile.objects.get(user = currentUser)
+    price = getPrice(coinName)
+
+    for coins in ownedCoins:
+        coins.price = getPrice(coins.coinName)
+        coins.save()
+
+
     if response.method=="POST":
         if response.POST.get("sell"):
-            if validateSell(coinName):
-                order = Order.objects.create(user=getUser(response), coinName=coinName, price=getPrice(coinName), type="sell", time=datetime.now())
+
+
+            if validateSell(coinName, float(response.POST.get("HowMuch")), ownedCoins):
+                order = Order.objects.create(user=currentUser, coinName=coinName, price=price, type="sell", time=datetime.now())
                 order.save()
 
-                ownedCoins = OwnedCoin.objects.all()
                 for coins in ownedCoins:
-                    if getUser(response)==coins.user and coinName==coins.coinName:
-                        coins.amount = coins.amount - float(response.POST.get("HowMuch"))
-                        coins.save()
-                        break
+                    if currentUser==coins.user and coinName==coins.coinName:
+                        if (coins.amount - float(response.POST.get("HowMuch")) >= 0):
+                            coins.amount = coins.amount - float(response.POST.get("HowMuch"))
+                            coins.save()
+                            profile.account_balance += float(response.POST.get("HowMuch"))*float(price)
+                            profile.save()
+                            break
+                        else:
+                            return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.filter(user=currentUser), "found":False})
 
-                return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.filter(user=getUser(response)), "found":True})
+                return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.filter(user=currentUser), "found":True})
             else:
-                return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.filter(user=getUser(response)), "found":False})
+                return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.filter(user=currentUser), "found":False})
             
 
 
@@ -77,30 +93,34 @@ def BuyAndSell(response):
         if response.POST.get("buy"):
             coinName = response.POST.get("BuyOrSell")
 
-            if validateBuy(coinName):
-                order = Order.objects.create(user=getUser(response), coinName=coinName, price=getPrice(coinName), type="buy", time=datetime.now())
+            if validateBuy(currentUser, coinName, float(response.POST.get("HowMuch")), price):
+                order = Order.objects.create(user=currentUser, coinName=coinName, price=price, type="buy", time=datetime.now())
                 order.save()
 
-                ownedCoins = OwnedCoin.objects.all()
                 owned = False
                 for coins in ownedCoins:
-                    if getUser(response)==coins.user and coinName==coins.coinName:
+                    if currentUser==coins.user and coinName==coins.coinName:
                         owned = True
                         coins.amount = coins.amount + float(response.POST.get("HowMuch"))
                         coins.save()
+                        profile.account_balance -= float(response.POST.get("HowMuch"))*float(price)
+                        profile.save()
                         break
 
                 if not owned:
-                    ownedCoin = OwnedCoin.objects.create(user=getUser(response), coinName=coinName, amount=float(response.POST.get("HowMuch")))
+                    ownedCoin = OwnedCoin.objects.create(user=currentUser, coinName=coinName, amount=float(response.POST.get("HowMuch")))
 
-                return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.filter(user=response.user), "found":True})
+                return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.filter(user=currentUser), "found":True})
             else:
-                return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.filter(user=response.user), "found":False})
-    return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.filter(user=response.user), "found":True})
+                return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.filter(user=currentUser), "found":False})
+
+
+    return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.filter(user=currentUser), "found":True})
+
 
 def previousTrades(response):
     trades = Order.objects.filter(user=response.user)
-    return render(response, "main/previousTrades.html", {"trades":trades})
+    return render(response, "main/previousTrades.html", {"trades":reversed(trades)})
 
 
 
@@ -124,30 +144,28 @@ def cryptoList(response):
     return render(response, "main/cryptoList.html" ,{"coins":coins})
 
 def tickets(response):
-
-    TicketFormSet = modelformset_factory(Ticket, fields=('title', 'query'))
-    # queryset = Ticket.objects.filter(__name__.startswith('0'))
-    if response.method == 'POST':
-        formset = TicketFormSet(response.POST, response.FILES, queryset=Ticket.objects.none())
-        if formset.is_valid():
-            print(response)
-            formset.save()
-
-    else:
-        formset = TicketFormSet(queryset=Ticket.objects.none())
-
-    # print(response.user)
     try:
         tickets = Ticket.objects.all()
     except Ticket.DoesNotExist:
         tickets = None
+    return render(response, "main/tickets.html", {'list': tickets})
 
 
-    return render(response, "main/tickets.html", {'formset': formset, 'list': tickets})
+def create_ticket(response):
+    TicketFormSet = modelformset_factory(Ticket, fields=('title', 'query'))
+    if response.method == 'POST':
+        formset = TicketFormSet(response.POST, response.FILES, queryset=Ticket.objects.none())
+        title_text = response.POST.get("form-0-title")
+        query_text = response.POST.get("form-0-query")
 
-from django.urls import reverse
+        if formset.is_valid() and title_text != "" and query_text != "":
+            ticket = Ticket.objects.create(user=response.user, title=title_text, query=query_text)
+            return tickets(response)
+    else:
+        formset = TicketFormSet(queryset=Ticket.objects.none())
+    return render(response, "main/create-ticket.html", {'formset': formset, })
 
-from django.urls import reverse
+
 
 def show_deposit_withdraw_form(request):
     if request.method == 'POST':
@@ -196,6 +214,7 @@ def withdraw(request):
         if form.is_valid():
             amount = float(request.GET.get('amount', 0))
             if amount > profile.account_balance:
+                # change that to be in a form
                 messages.error(request, f'Withdrawal of {amount} failed. Insufficient funds.')
             else:
                 profile.account_balance -= amount

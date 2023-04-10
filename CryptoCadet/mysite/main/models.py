@@ -13,7 +13,7 @@ class Coin(models.Model):
 
 class Ticket(models.Model):
     num = models.AutoField(primary_key=True)
-    user =  models.CharField(max_length=200, null=True, blank=True)
+    user =  models.ForeignKey(User, on_delete=models.CASCADE, default=None)
     title = models.CharField(max_length=200)
     query = models.CharField(max_length=500)
 
@@ -28,7 +28,7 @@ class OwnedCoin(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     coinName = models.CharField(max_length=10)
     amount = models.FloatField()
-    price = models.FloatField(max_length=5, null=True)
+    price = models.FloatField(max_length=10, null=True)
 
 
 class Profile(models.Model):

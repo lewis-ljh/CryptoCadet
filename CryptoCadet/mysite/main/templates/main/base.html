@@ -1,7 +1,61 @@
 <!DOCTYPE html>
     <html>
         <head>
+            <style>
+                body{
+                    overflow-x: hidden;
+                }
+                .div-center {
+                     width: 400px;
+                     height: 400px;
+                     background-color: #fff;
+                     position: absolute;
+                     left: 0;
+                     right: 0;
+                     top: 0;
+                     bottom: 0;
+                     margin: auto;
+                     max-width: 100%;
+                     max-height: 100%;
+                     overflow: auto;
+                     padding: 1em 2em;
+                     border: 2px solid #ccc;
+                     display: table;
+                     border-radius: 15px;
+                 }
 
+                 .register-center {
+                     width: 600px;
+                     height: 400px;
+                     background-color: #fff;
+                     position: absolute;
+                     left: 0;
+                     right: 0;
+                     margin: auto;
+                     margin-top: 50px;
+                     max-width: 100%;
+                     max-height: 100%;
+                     overflow: auto;
+                     padding: 1em 2em;
+                     border: 2px solid #ccc;
+                     display: table;
+                     border-radius: 15px;
+
+
+                 }
+
+                .screen{
+                    height: 100vh;
+                }
+
+                .side-nav{
+                    padding: 1em;
+                }
+
+                .side-nav-link{
+                    color: #ccc;
+                }
+             </style>
              <!-- Required meta tags -->
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,7 +69,7 @@
         <body>
                 {% block navbar%}
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                    <a class="navbar-brand text-primary" href="{% url 'home' %}">Crypto Cadet</a>
+                    <a class="navbar-brand text-primary" href="{% url 'home' %}" style="font-weight: 500;">Crypto Cadet</a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                          </button>
@@ -23,28 +77,28 @@
                     <div class="collapse navbar-collapse" id="navbarText">
                          <ul class="navbar-nav ml-auto">
                             {% if user.is_authenticated %}
-                                <li class="nav-item">
+                                <li class="nav-item d-block d-lg-none">
                                     <a class='nav-link' href="{% url 'CryptoList' %}">Exchange List</a>
                                 </li>   
-                                <li class="nav-item">
+                                <li class="nav-item ">
                                     <a class='nav-link' href="{% url 'BuyAndSell' %}">Buy or Sell</a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item d-block d-lg-none">
                                     <a class='nav-link' href="{% url 'watchlist' %}">Watchlist</a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item d-block d-lg-none">
                                     <a class='nav-link' href="{% url 'exam' %}">Beginner Exam/Revision</a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item d-block d-lg-none">
                                     <a class='nav-link' href="{% url 'tickets' %}">Submit Ticket</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class='nav-link' href="{% url 'deposit_withdraw' %}">Deposit or Withdraw</a></li>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item d-block d-lg-none">
                                     <a class='nav-link' href="{% url 'previousTrades' %}">View Trades</a></li>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item d-block d-lg-none">
                                     <a class='nav-link' href="{% url 'personal_info' %}">Personal Information</a>
                                 </li>
 
@@ -52,6 +106,7 @@
                                 <li>
                                     <button class='btn btn-primary' id="'logout" onclick="leave()">Logout</button>
                                 </li>
+
                                 {% endblock %}
                             {% else %}
                                 <li>
@@ -65,13 +120,66 @@
 
                 {% endblock %}
 
-                
-                {% if not user.is_authenticated %}   
+
+
+
+
+                {% if not user.is_authenticated %}
                     {% block loginform %} {% endblock %}
                 {% endif %}
 
-                {%block content %}
-                {% endblock %}
+                <!--Logged in dashboard -->
+                <div class="screen">
+                    {% if user.is_authenticated %}
+                        <div class="row h-100 ">
+                            <!-- Side nav -->
+                            <div class="col-sm-2 navbar-dark bg-dark d-none d-lg-flex" id="navbarText">
+                                <div class="side-nav">
+                                    <ul class="navbar-nav ml-auto">
+                                        <li >
+                                            <a class='nav-link' href="{% url 'CryptoList' %}">Exchange List</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class='nav-link' href="{% url 'watchlist' %}">Watchlist</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class='nav-link' href="{% url 'exam' %}">Beginner Exam/Revision</a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class='nav-link' href="{% url 'deposit_withdraw' %}">Deposit or Withdraw</a></li>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class='nav-link' href="{% url 'previousTrades' %}">View Trades</a></li>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class='nav-link' href="{% url 'personal_info' %}">Personal Information</a>
+                                        </li>
+                                    </ul>
+                                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                                        <span>Support</span>
+                                    </h6>
+                                    <ul class="navbar-nav ml-auto">
+                                        <li class="nav-item">
+                                            <a class='nav-link' href="{% url 'tickets' %}">Submit Ticket</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Main Content goes in here -->
+                            <div class="col bg-light w-95">
+                                {%block content %}
+                                {% endblock %}
+                            </div>
+                        </div>
+
+                        {%else%}
+                               {%block banner%}
+                               {% endblock %}
+                    {%endif%}
+
+                </div>
+
 
              <!-- jQuery first, then Popper.js, then Bootstrap JS -->
             <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -87,7 +195,12 @@
                     }
                 }
 
+
+
+
             </script>
+
+
 
         </body>
     </html>

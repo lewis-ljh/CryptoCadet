@@ -1,36 +1,62 @@
 {% extends "main/base.html" %}
 
+
 {% block content %}
-    <form method="post">
-        {% csrf_token %}
-        {{form.as_p}}    
-        <label for="BuyOrSell">What coin would you like to buy or sell, e.g. BTCUSDT</label><br>
-        <input type="text", name="BuyOrSell"><br>
-        <label for="HowMuch">How much of the coin would you like to buy or sell?</label><br>
-        <input type="number", step="0.0001" name="HowMuch"><br>
+        {% load crispy_forms_tags %}
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">Buy and Sell</div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="BuyOrSell">Coin Type, e.g. BTCUSDT</label>
+                                <input type="text" class="form-control" name="BuyOrSell">
+                            </div>
+                            <div class="mb-3">
+                                <label for="HowMuch">Amount</label>
+                                <input type="number" class="form-control" name="HowMuch" step="0.0001", min="0.0001">
+                            </div>
+                            <button type="submit", name="buy", value="buy" class="btn btn-primary">Buy Coin</button>
+                            <button type="submit", name="sell", value="sell" class="btn btn-primary">Sell Coin</button>
+                            {% if not found %}
+                                <p style="color: red">Error, check values entered</p>
+                            {% endif %}
 
-        <button type="submit", name="buy", value="buy">Buy Coin</button>
-        <button type="submit", name="sell", value="sell">Sell Coin</button>
+                            <p class="card-header">Owned Coins</p>
+                            {% for coin in coins %}
+                                {% if coin.amount != 0%}
+                                <p>{{coin.coinName}} --- {{coin.amount}}</p>
+                                {% endif %}
+                            {% endfor %}
+                    </form>
+                </div>
+            </div>
+          </div>        
+      </div>
+    </div>
 
-    </form>
+<style>
+.container {
+margin-top: 50px;
+}
+.title{
+    font-weight: bold;
+    font-size: 1.2em;
+    
+}
 
-    {% if not found %}
-        <p>Error, check values entered</p>
-    {% endif %}
-
-    <p>Owned Coins:</p>
-    {% for coin in coins %}
-        {% if coin.amount != 0%}
-        <p>{{coin.coinName}} --- {{coin.amount}}</p>
-        {% endif %}
-    {% endfor %}
-
-    <!--
-    {% for item in tickers %}
-        {% if item.symbol|slice:"-4:" == "USDT" %}
-            <p>{{ item.symbol }} ---- {{ item.price }}</p>
-        {% endif %}
-    {% endfor %} 
-    -->
+.card-header {
+font-weight: bold;
+font-size: 1.2em;
+text-align: center;
+}
+p{
+    text-align: center;
+}
+</style>
+</div>  
 
 {% endblock %}

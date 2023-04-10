@@ -8,7 +8,7 @@ def watchList(response):
     if response.method == "POST":
         form = WatchlistForm(response.POST)
         form.instance.user = response.user
-        if form.is_valid():
+        if form.is_valid() and form.cleaned_data['coin'] is not None:
             form.save()
             return redirect("/watchlist")
     else:
@@ -20,3 +20,8 @@ def watchList(response):
     except WatchCoin.DoesNotExist:
         items = None
     return render(response, "watchlist/watchlist.html" ,{"items":items , "form":form}) 
+
+def deleteItem(request,item_id):
+    item = WatchCoin.objects.all().filter(id=item_id)
+    item.delete()
+    return redirect("/watchlist")

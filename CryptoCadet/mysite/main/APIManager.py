@@ -1,5 +1,7 @@
 from binance import Client
+from .models import Profile, OwnedCoin
 
+        
 
 def createClient():
     APIKEY = "g0t3354JYusdR55nj4kvzYFVM3iZ5jHZLD4GdPER0PyMNI8nxv9EBWsnNrgBuAq5"
@@ -18,14 +20,20 @@ def coinExists(coin):
 
 
 
-def validateSell(coin):
+def validateSell(coin, amount, ownedCoins):
     if coinExists(coin):
-        # if user has enough money
-        return True
+        for coins in ownedCoins:
+            if coins.coinName == coin and coins.amount >= amount:
+                return True
+    
+    return False
 
-def validateBuy(coin):
+def validateBuy(user, coin, amount, price):
     if coinExists(coin):
-        return True
+        if Profile.objects.get(user=user).account_balance>float(price)*float(amount):
+            return True
+        
+    return False 
     
 
 def getTickers():
@@ -43,6 +51,8 @@ def getUSDTCoins():
             print(a[x]["symbol"], ":", a[x]["price"])
 
 def getPrice(symbol):
+    if symbol == "":
+        return None
     client = createClient()
     prices = client.get_all_tickers()
     for x in range(len(prices)):

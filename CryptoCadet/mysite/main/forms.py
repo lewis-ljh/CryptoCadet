@@ -3,6 +3,7 @@ from django.core.exceptions import ValidationError
 from django.utils import timezone
 
 
+
 class CreateNewList(forms.Form):
     name = forms.CharField(label="Name", max_length=200)
     check = forms.BooleanField(required=False)
@@ -92,4 +93,5 @@ class WithdrawForm(forms.Form):
         if digits[5] not in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]:
             raise ValidationError('Sixth digit of sort code must be between 0 and 9')
         return sort_code
+
 
