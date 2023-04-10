@@ -2,23 +2,24 @@
 {% block content %}
 
 {% load crispy_forms_tags %}
-<div class="row justify-content-center">
-  <div class="col-md-8">
-    <div class="card">
-      <div class="card-header">Create Ticket</div>
-        <div class="card-body"> 
-          <form method="post" class="form-group">
-            {% csrf_token %}
-            {{formset|crispy}}
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <a class="btn btn-primary " href="{% url 'tickets' %}" role="button">Back</a>
-          </form>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">Create Ticket</div>
+          <div class="card-body"> 
+            <form method="post" class="form-group">
+              {% csrf_token %}
+              {{formset|crispy}}
+              <button type="submit" class="btn btn-primary">Submit</button>
+              <a class="btn btn-primary " href="{% url 'tickets' %}" role="button">Back</a>
+            </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
   <script>
     var title = document.getElementsByName('form-0-title');
     var query = document.getElementsByName('form-0-query');
@@ -27,23 +28,18 @@
 </script>
 
   <style>
+  
     .card-header {
   font-weight: bold;
   font-size: 1.2em;
   text-align: center;
   }
-  p{
+    p{
       text-align: center;
   }
     .container {
-      margin-top: 5vh;
-      margin-left: 30vw;
-      margin-right: 50vw;
-    }
-
-    .card-header {
-      font-weight: bold;
-      font-size: 1.2em;
+      margin-top: 50px;
+      
     }
   </style>
 
