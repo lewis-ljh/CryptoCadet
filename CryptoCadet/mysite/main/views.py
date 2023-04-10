@@ -1,8 +1,10 @@
-from django.shortcuts import render
+from django.contrib import messages
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic.base import View
 
 from .APIManager import *
+from .forms import DepositWithdrawForm, DepositForm, WithdrawForm
 from .models import Coin, Address, Profile
 
 
@@ -142,3 +144,69 @@ def tickets(response):
 
 
     return render(response, "main/tickets.html", {'formset': formset, 'list': tickets})
+
+from django.urls import reverse
+
+from django.urls import reverse
+
+def show_deposit_withdraw_form(request):
+    if request.method == 'POST':
+        form = DepositWithdrawForm(request.POST)
+        if form.is_valid():
+            request.session['deposit_withdraw_amount'] = float(form.cleaned_data['amount'])
+            if form.cleaned_data['type'] == 'deposit':
+                return redirect(reverse('deposit') + f'?amount={request.session["deposit_withdraw_amount"]}')
+            else:
+                return redirect(reverse('withdraw') + f'?amount={request.session["deposit_withdraw_amount"]}')
+    else:
+        form = DepositWithdrawForm()
+    context = {'form': form}
+    return render(request, 'main/deposit_withdraw.html', context)
+
+
+
+
+def deposit(request):
+    profile = request.user.profile
+    if request.method == 'POST':
+        form = DepositForm(request.POST)
+        if form.is_valid():
+            amount = float(request.GET.get('amount', 0))
+            profile.account_balance += amount
+            profile.save()
+            if 'deposit_withdraw_amount' in request.session:
+                del request.session['deposit_withdraw_amount']
+            messages.success(request, f'Deposit of {amount} was successful.')
+            return redirect('home')
+    else:
+        amount = request.session.pop('deposit_withdraw_amount', None)
+        if amount is None:
+            messages.error(request, 'Invalid access to deposit page.')
+            return redirect('home')
+        form = DepositForm()
+    context = {'form': form}
+    return render(request, 'main/deposit.html', context)
+
+
+
+def withdraw(request):
+    profile = request.user.profile
+    if request.method == 'POST':
+        form = WithdrawForm(request.POST)
+        if form.is_valid():
+            amount = float(request.GET.get('amount', 0))
+            if amount > profile.account_balance:
+                messages.error(request, f'Withdrawal of {amount} failed. Insufficient funds.')
+            else:
+                profile.account_balance -= amount
+                profile.save()
+                messages.success(request, f'Withdrawal of {amount} was successful.')
+            return redirect('home')
+    else:
+        amount = request.session.pop('deposit_withdraw_amount', None)
+        if amount is None:
+            messages.error(request, 'Invalid access to withdraw page.')
+            return redirect('home')
+        form = WithdrawForm()
+    context = {'form': form}
+    return render(request, 'main/withdraw.html', context)

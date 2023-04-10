@@ -21,4 +21,7 @@ urlpatterns = [
     path("watchlist/", wlv.watchList, name="watchlist"),
     path("previousTrades", views.previousTrades, name="previousTrades"),
     path("exam/", EView.take_quiz, name="exam"),
+    path('deposit_withdraw/', views.show_deposit_withdraw_form, name='deposit_withdraw'),
+    path('deposit/', views.deposit, name='deposit'),
+    path('withdraw/', views.withdraw, name='withdraw'),
 ]
