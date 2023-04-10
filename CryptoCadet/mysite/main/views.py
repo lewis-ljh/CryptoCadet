@@ -72,11 +72,14 @@ def BuyAndSell(response):
 
                 for coins in ownedCoins:
                     if currentUser==coins.user and coinName==coins.coinName:
-                        coins.amount = coins.amount - float(response.POST.get("HowMuch"))
-                        coins.save()
-                        profile.account_balance += float(response.POST.get("HowMuch"))*float(price)
-                        profile.save()
-                        break
+                        if (coins.amount - float(response.POST.get("HowMuch")) >= 0):
+                            coins.amount = coins.amount - float(response.POST.get("HowMuch"))
+                            coins.save()
+                            profile.account_balance += float(response.POST.get("HowMuch"))*float(price)
+                            profile.save()
+                            break
+                        else:
+                            return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.filter(user=currentUser), "found":False})
 
                 return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.filter(user=currentUser), "found":True})
             else:
