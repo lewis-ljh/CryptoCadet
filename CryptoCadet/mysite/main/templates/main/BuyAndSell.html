@@ -21,16 +21,34 @@
                             </div>
                             <button type="submit", name="buy", value="buy" class="btn btn-primary">Buy Coin</button>
                             <button type="submit", name="sell", value="sell" class="btn btn-primary">Sell Coin</button>
-                            {% if not found %}
+
+                            {% if found == None %}
+                            {% elif not found %}
                                 <p style="color: red">Error, check values entered</p>
+                            {% elif found %}
+                                <p style="color: green">Order placed successfully</p>
                             {% endif %}
 
                             <p class="card-header">Owned Coins</p>
-                            {% for coin in coins %}
-                                {% if coin.amount != 0%}
-                                <p>{{coin.coinName}} --- {{coin.amount}}</p>
-                                {% endif %}
-                            {% endfor %}
+
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                    <th scope="col">Coin</th>
+                                    <th scope="col">Amount Owned</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for coin in coins %}
+                                        {% if coin.amount > 0 %}
+                                        <tr>
+                                            <th>{{coin.coinName}}</th>
+                                            <td>{{coin.amount}}</td>
+                                        </tr>
+                                        {% endif %}
+                                    {% endfor %} 
+                                </tbody>
+                            </table>
                     </form>
                 </div>
             </div>

@@ -21,14 +21,18 @@ def coinExists(coin):
 
 
 def validateSell(coin, amount, ownedCoins):
+    if coin == "" or amount =="":
+        return False
     if coinExists(coin):
         for coins in ownedCoins:
-            if coins.coinName == coin and coins.amount >= amount:
+            if coins.coinName == coin and coins.amount >= float(amount):
                 return True
     
     return False
 
 def validateBuy(user, coin, amount, price):
+    if coin == "" or amount =="":
+        return False
     if coinExists(coin):
         if Profile.objects.get(user=user).account_balance>float(price)*float(amount):
             return True

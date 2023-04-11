@@ -68,7 +68,7 @@ def BuyAndSell(response):
         if response.POST.get("sell"):
 
 
-            if validateSell(coinName, float(response.POST.get("HowMuch")), ownedCoins):
+            if validateSell(coinName, response.POST.get("HowMuch"), ownedCoins):
                 order = Order.objects.create(user=currentUser, coinName=coinName, price=price, type="sell", time=datetime.now())
                 order.save()
 
@@ -93,7 +93,7 @@ def BuyAndSell(response):
         if response.POST.get("buy"):
             coinName = response.POST.get("BuyOrSell")
 
-            if validateBuy(currentUser, coinName, float(response.POST.get("HowMuch")), price):
+            if validateBuy(currentUser, coinName, response.POST.get("HowMuch"), price):
                 order = Order.objects.create(user=currentUser, coinName=coinName, price=price, type="buy", time=datetime.now())
                 order.save()
 
@@ -115,7 +115,7 @@ def BuyAndSell(response):
                 return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.filter(user=currentUser), "found":False})
 
 
-    return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.filter(user=currentUser), "found":True})
+    return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.filter(user=currentUser), "found":None})
 
 
 def previousTrades(response):
