@@ -1,152 +1,192 @@
 {% extends "main/base.html" %}
 {% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+  <html lang="en">
   <head>
-    <title>Investment Quiz</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Investment Quiz</title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
-
-
        
+<body>
+  <div class="container">
+    {%block content%}
+    <body>
 
-{%block content%}
-<h1>Investment Quiz</h1>
 
-    <p>Test your knowledge about investment!</p>
+      <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <br>
+              <h1 class="font-weight-bold text-center text-primary h1">Investment Quiz</h1>
+            </div>
+          </div>
 
-    <form id="quiz-form" action='#'>
-      <h2>Question 1</h2>
-        <p>What is the definition of ROI?</p>
-         <label>
-            <input type="radio" name="q1" value="a">
-                a. Return of Investment
-         </label><br>
 
-        <label>
-            <input type="radio" name="q1" value="b">
-            b. Rate of Interest
-        </label><br>
+          <div class="row">
+            <div class="col-md-12">
+              <p class="text-center">Test your knowledge about investment!</p>
+            </div>
+          </div>
 
-        <label>
-            <input type="radio" name="q1" value="c">
-            c. Risk of Investment
-        </label><br><br>
-      
-      <h2>Question 2</h2>
-        <p>What is the difference between stocks and bonds?</p>
-        <label>
-            <input type="radio" name="q2" value="a">
-            a. Stocks are riskier than bonds
-        </label><br>
 
-        <label>
-            <input type="radio" name="q2" value="b">
-            b. Bonds are riskier than stocks
-        </label><br>
+        <div class="row">
+          <div class="col-md-12">
 
-        <label>
-            <input type="radio" name="q2" value="c">
-            c. Stocks represent ownership in a company while bonds are debt
-        </label><br><br>
-      
-      <h2>Question 3</h2>
-        <p>What is diversification?</p>
-        <label>
-            <input type="radio" name="q3" value="a">
-            a. Investing in a single stock or bond
-        </label><br>
+            <form id="quiz-form" action="#">
+            <div class="form-group">
+                <h2 class="text-info">Question 1</h2>
+                <p>What is the definition of ROI?</p>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="q1" id="q1a" value="a">
+                  <label class="form-check-label" for="q1a">a. Return of Investment</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="q1" id="q1b" value="b">
+                  <label class="form-check-label" for="q1b">b. Rate of Interest</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="q1" id="q1c" value="c">
+                  <label class="form-check-label" for="q1c">c. Risk of Investment</label>
+                </div>
+              
+              
+            <br><br>
 
-        <label>
-            <input type="radio" name="q3" value="b">
-            b. Investing in multiple stocks or bonds to reduce risk
-        </label><br>
+              <h2 class="text-info">Question 2</h2>
+              <p>What is the difference between stocks and bonds?</p>
+              <div class="form-check">
+                  <input class="form-check-input" type="radio" name="q2" id="q2a" value="a">
+                  <label class="form-check-label" for="q2a"> a. Stocks are riskier than bonds </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="q2" id="q2b" value="b"> 
+                <label class="form-check-label" for="q2b"> b. Bonds are riskier than stocks </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="q2" id="q2c" value="c"> 
+                <label class="form-check-label" for="q2c">  c. Stocks represent ownership in a company while bonds are debt </label>
+              </div>
 
-        <label>
-            <input type="radio" name="q3" value="c">
-            c. Investing in a mutual fund
-        </label><br><br>
+            <br><br>
+            
+            <h2 class="text-info">Question 3</h2>
+              <p>What is diversification?</p>
+              <div class="form-check">
+                  <input class="form-check-input" type="radio" name="q3" id="q3a" value="a"> 
+                  <label class="form-check-label" for="q3a">  a. Investing in a single stock or bond </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="q3" id="q3b" value="b"> 
+                <label class="form-check-label" for="q3b"> b. Investing in multiple stocks or bonds to reduce risk </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="q3" id="q3c" value="c"> 
+                <label class="form-check-label" for="q3c"> c. Investing in a mutual fund </label>
+              </div>
 
-      <h2>Question 4</h2>
-          <p>What is a mutual fund?</p>
-        <label>
-          <input type="radio" name="q4" value="a">
-          a. An investment that provides guaranteed returns
-        </label><br>
+            <br><br>
+  
+            <h2 class="text-info">Question 4</h2>
+                <p>What is a mutual fund?</p>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="q4" id="q4a" value="a"> 
+                  <label class="form-check-label" for="q4a"> a. An investment that provides guaranteed returns</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="q4" id="q4b" value="b"> 
+                  <label class="form-check-label" for="q4b">b. An investment that pools money from multiple investors and invests in stocks, bonds, or other assets</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="q4" id="q4c" value="c"> 
+                  <label class="form-check-label" for="q4c"> c. A type of bond that pays a fixed interest rate </label>
+                </div>
 
-        <label>
-        <input type="radio" name="q4" value="b">
-          b. An investment that pools money from multiple investors and invests in stocks, bonds, or other assets
-        </label><br>
-        <label>
-          <input type="radio" name="q4" value="c">
-          c. A type of bond that pays a fixed interest rate
-        </label><br><br>
-      
-      <h2>Question 5</h2>
-        <p>What is the difference between a traditional IRA and a Roth IRA?</p>
-        <label>
-          <input type="radio" name="q5" value="a">
-          a. Traditional IRA contributions are tax-deductible, while Roth IRA contributions are not
-        </label><br>
-        <label>
-          <input type="radio" name="q5" value="b">
-          b. Traditional IRA distributions are tax-free, while Roth IRA distributions are not
-        </label>
+            <br><br>
+            
+            <h2 class="text-info">Question 5</h2>
+              <p>What is the difference between a traditional IRA and a Roth IRA?</p>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="q5" id="q5a" value="a"> 
+                <label class="form-check-label" for="q5a"> a. Traditional IRA contributions are tax-deductible, while Roth IRA contributions are not </label>
+              </div>
+             <div class="form-check">
+                <input class="form-check-input" type="radio" name="q5" id="q5b" value="b"> 
+                <label class="form-check-label" for="q5b"> b. Traditional IRA distributions are tax-free, while Roth IRA distributions are not </label>
+             </div>
+             
+             <br><br>
+              
+            <h2 class="text-info">Question 6</h2>
+              <p>What is Crypto Currency?</p>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="q6" id="q5a" value="a"> 
+                  <label class="form-check-label" for="q6a">a. A physical currency used for online transactions </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="q6" id="q6b" value="b"> 
+                  <label class="form-check-label" for="q6b"> b. A type of stock traded on the stock market </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="q6" id="q6c" value="c"> 
+                  <label class="form-check-label" for="q6c">c.  A digital or virtual currency that uses cryptography for security</label>
+                </div>
+              
+            <br><br>
+            
+            <h2 class="text-info">Question 7</h2>
+              <p>What is Bitcoin?</p>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="q7" id="q7a" value="a"> 
+                <label class="form-check-label" for="q7a"> a. A type of stock </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="q7" id="q7b" value="b"> 
+                <label class="form-check-label" for="q7b">b.A physical currency used for online transactions</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="q7" id="q7c" value="c"> 
+                <label class="form-check-label" for="q7c">c. A digital or virtual currency that uses cryptography for security</label>
+              </div>
+            
+            <br><br>
 
-        
-        <h2>Question 6</h2>
-        <p>What is Crypto Currency?</p>
-        <label>
-            <input type="radio" name="q6" value="a">
-            a. A physical currency used for online transactions
-        </label><br>
 
-        <label>
-            <input type="radio" name="q6" value="b">
-            b. A type of stock traded on the stock market
-        </label><br>
+            <h2 class="text-info">Question 8</h2>
+              <p>What is a blockchain?</p>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="q8" id="q8a" value="a"> 
+                <label class="form-check-label" for="q8a">a. A physical chain made of blocks</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="q8" id="q8b" value="b"> 
+                <label class="form-check-label" for="q8b"> b. A decentralized, digital ledger of transactions </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="q8" id="q8c" value="c"> 
+                <label class="form-check-label" for="q8c">b. A centralized, physical ledger of transactions</label>
+                </div>
+              
+            <br><br>
+            <input type="submit" value="Submit" class="btn btn-primary btn-lg" onclick>
 
-        <label>
-            <input type="radio" name="q6" value="c">
-            c.  A digital or virtual currency that uses cryptography for security
-        </label><br><br>
 
-        <h2>Question 7</h2>
-          <p>What is Bitcoin?</p>
-        <label>
-          <input type="radio" name="q7" value="a">
-          a. A type of stock
-        </label><br>
+            </form>
 
-        <label>
-        <input type="radio" name="q7" value="b">
-          b.A physical currency used for online transactions
-        </label><br>
-        <label>
-          <input type="radio" name="q7" value="c">
-          c. A digital or virtual currency that uses cryptography for security
-        </label><br><br>
-      
-      <h2>Question 8</h2>
-        <p>What is a blockchain?</p>
-        <label>
-          <input type="radio" name="q8" value="a">
-          a. A physical chain made of blocks
-        </label><br>
-        <label>
-          <input type="radio" name="q8" value="b">
-          b. A decentralized, digital ledger of transactions
-        </label><br>
-        <label>
-          <input type="radio" name="q8" value="c">
-          b. A centralized, physical ledger of transactions
-        </label><br><br>
-        
-      <input type="submit" value="Submit" class="btn btn-primary btn-lg" onclick>
 
-    </form>
-    
-    <div id="results"></div>
-    
+
+            <div id="results"></div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </body>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script>
         const quizForm = document.getElementById('quiz-form');
         const resultsDiv = document.getElementById('results');
@@ -164,6 +204,7 @@
               score += 1;
               }
         });
+
 
      
         var result;
