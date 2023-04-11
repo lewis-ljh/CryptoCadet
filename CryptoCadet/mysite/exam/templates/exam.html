@@ -167,7 +167,8 @@
 
      
         var result;
-        sessionStorage.setItem ('result',`<h2>Your Score: ${score}/${correctAnswers.length}</h2>`);
+        sessionStorage.setItem ('result',`Your Score: ${score}/${correctAnswers.length}`);
+        sessionStorage.setItem('score', score )
         console.log(`we got this far!`);
         window.location.href = "{% url 'results' %}";
         });

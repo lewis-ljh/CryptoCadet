@@ -1,21 +1,69 @@
 {% extends "main/base.html" %}
 {% load crispy_forms_tags %}
 
+
 <!DOCTYPE html>
+<html>
 <head>
-    <title> results </title>
+	<title>Results</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-OgVRvuATP1z7JjHLkuOU3a3leT/7QIoTkX6hR7jFJQIZG4jXR/xpnoGkpX0xJzIh" crossorigin="anonymous">
 </head>
 
 {%block content%}
-    <body>
-        <div id="ans"></div>
-        <p>test</p>
-    </body>
+<body>
+	<div class="container mt-5">
+		<div class="row">
+			<div class="col-md-8">
+				<div class="card">
+					<div class="card-body">
+						<div id="ans" class="font-weight-bold text-primary h1"></div>
+                        <br>
+						
+					</div>
+				</div>
+			</div>
+		</div>
 
-    <script>
-        const ansDiv = document.getElementById('ans');
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div id=finalScore class="font-italic text-muted h6"> </div>
+                        <div id="comment" class="font-italic text-muted h6"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
 
-        ansDiv.innerHTML =  sessionStorage.getItem('result');
-    </script>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/umd/popper.min.js" integrity="sha384-EmOzEvRfRldVWnyi8imrZr3xq3aTp7qwCk2CcOv7eT6q3ux6Fp5k+kwULhJitbm7" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+	<script>
+		
+
+        const score = sessionStorage.getItem('score');
+		const ansDiv = document.getElementById('ans');
+        const scoreDiv = document.getElementById('finalScore')
+        const commentDiv = document.getElementById('comment')
+
+
+		ansDiv.innerHTML = sessionStorage.getItem('result');
+
+        if (score >= 5) {
+            console.log("You passed"); 
+            ansDiv.innerHTML = `<h2> well done you passed! </h2>`
+            scoreDiv.innerHTML = sessionStorage.getItem('result');
+            commentDiv.innerHTML = `<p> congratulations!, you're account is now eligible for an upgrade in becoming an advanced user</p>`
+        } else {
+            console.log("You failed");
+            ansDiv.innerHTML = `<h2> sorry,  you failed! </h2>`
+            scoreDiv.innerHTML = sessionStorage.getItem('result');
+            commentDiv.innerHTML = `<p> please try this quiz again. you must receive a pass mark of 70% in order to be eligible for an account upgrade </p>`
+        }
+	</script>
+</body>
+</html>
 {%endblock%}
 
