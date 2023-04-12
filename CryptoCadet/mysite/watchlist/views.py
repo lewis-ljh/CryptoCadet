@@ -35,7 +35,7 @@ def watchList(request):
 
 
 def deleteItem(request,item_id):
-    #get the item from the watchlist using its id from the url
+    #get the item from the watchlist using its id from the url and ensure its only deleted for required user
     item = WatchCoin.objects.all().filter(id=item_id).filter(user=request.user)
     #delete it form the model
     item.delete()
