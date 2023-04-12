@@ -67,7 +67,7 @@ class ViewPersonalInformation(View):
 def BuyAndSell(response):
 
     currentUser = response.user
-    ownedCoins = OwnedCoin.objects.all().filter(User=response.user)
+    ownedCoins = OwnedCoin.objects.all().filter(user=response.user)
     coinName = response.POST.get("BuyOrSell")
     profile = Profile.objects.get(user = currentUser)
     price = getPrice(coinName)
