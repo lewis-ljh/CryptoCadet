@@ -32,25 +32,35 @@ class ViewPersonalInformation(View):
         try:
             profile = Profile.objects.get(user=request.user)
             address = Address.objects.filter(user=request.user).first()
-            owned_coins = OwnedCoin.objects.filter(user=request.user)
+            if address:
+                street_name, city, post_code, country = address.street_name, address.city, address.post_code, address.country
+            else:
+                street_name, city, post_code, country = None, None, None, None
             context = {
                 "first_name": request.user.first_name,
                 "last_name": request.user.last_name,
-                "address": address,
+                "street_name": street_name,
+                "city": city,
+                "post_code": post_code,
+                "country": country,
                 "phone_number": profile.phone_number,
                 "account_balance": profile.account_balance,
-                "owned_coins": owned_coins,
+                "owned_coins": OwnedCoin.objects.filter(user=request.user)
             }
         except Profile.DoesNotExist:
             context = {
                 "first_name": request.user.first_name,
                 "last_name": request.user.last_name,
-                "address": None,
+                "street_name": None,
+                "city": None,
+                "post_code": None,
+                "country": None,
                 "phone_number": None,
                 "account_balance": None,
-                "owned_coins": None,
+                "owned_coins": None
             }
         return render(request, self.template_name, context)
+
 
 
 
@@ -72,7 +82,7 @@ def BuyAndSell(response):
         if response.POST.get("sell"):
 
 
-            if validateSell(coinName, float(response.POST.get("HowMuch")), ownedCoins):
+            if validateSell(coinName, response.POST.get("HowMuch"), ownedCoins):
                 order = Order.objects.create(user=currentUser, coinName=coinName, price=price, type="sell", time=datetime.now())
                 order.save()
 
@@ -97,7 +107,7 @@ def BuyAndSell(response):
         if response.POST.get("buy"):
             coinName = response.POST.get("BuyOrSell")
 
-            if validateBuy(currentUser, coinName, float(response.POST.get("HowMuch")), price):
+            if validateBuy(currentUser, coinName, response.POST.get("HowMuch"), price):
                 order = Order.objects.create(user=currentUser, coinName=coinName, price=price, type="buy", time=datetime.now())
                 order.save()
 
@@ -119,7 +129,7 @@ def BuyAndSell(response):
                 return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.filter(user=currentUser), "found":False})
 
 
-    return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.filter(user=currentUser), "found":True})
+    return render(response, "main/BuyAndSell.html", {"coins":OwnedCoin.objects.filter(user=currentUser), "found":None})
 
 
 def previousTrades(response):

@@ -9,9 +9,9 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card">
-                    <div class="card-header bg-primary text-white h4">{{ first_name }} {{ last_name }}</div>
+                    <div class="card-header bg-primary text-white h4 text-center">{{ first_name }} {{ last_name }}</div>
                     <div class="card-body">
-                        <h5 class="card-title h3 font-weight-bold">Personal Information</h5>
+                        <h5 class="card-title h3 font-weight-bold text-center mb-4">Personal Information</h5>
                         <table class="table table-striped table-bordered mt-5">
                             <tbody>
                                 {% if address %}
@@ -35,7 +35,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <h5 class="card-title h4 mt-5 border-top pt-4 font-weight-bold">Owned Coins</h5>
+                        <h5 class="card-title h4 mt-5 border-top pt-4 font-weight-bold text-center">Owned Coins</h5>
                         {% if owned_coins %}
                             <table class="table table-striped table-bordered mt-5">
                                 <thead>
