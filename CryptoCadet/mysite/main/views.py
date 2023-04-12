@@ -31,7 +31,7 @@ class ViewPersonalInformation(View):
     def get(self, request):
         try:
             profile = Profile.objects.get(user=request.user)
-            address = Address.objects.filter(user=request.user).first()
+            address = Address.objects.get(user=request.user)
             if address:
                 street_name, city, post_code, country = address.street_name, address.city, address.post_code, address.country
             else:
@@ -39,6 +39,7 @@ class ViewPersonalInformation(View):
             context = {
                 "first_name": request.user.first_name,
                 "last_name": request.user.last_name,
+                "address": address,
                 "street_name": street_name,
                 "city": city,
                 "post_code": post_code,
@@ -51,6 +52,7 @@ class ViewPersonalInformation(View):
             context = {
                 "first_name": request.user.first_name,
                 "last_name": request.user.last_name,
+                "address": None,
                 "street_name": None,
                 "city": None,
                 "post_code": None,
@@ -60,9 +62,6 @@ class ViewPersonalInformation(View):
                 "owned_coins": None
             }
         return render(request, self.template_name, context)
-
-
-
 
 
 def BuyAndSell(response):
