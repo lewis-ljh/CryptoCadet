@@ -15,7 +15,9 @@ from .forms import WatchlistForm
 def watchList(request):
     if request.method == "POST":
         form = WatchlistForm(request.POST)
+        #set the user of the form to the person 
         form.instance.user = request.user
+        #check forrm is valid and option has been selected
         if form.is_valid() and form.cleaned_data['coin'] is not None:
             coin = form.cleaned_data['coin']
             # Check if the coin is already in the user's watchlist
@@ -27,12 +29,14 @@ def watchList(request):
     else:
         form = WatchlistForm()
         form.instance.user = request.user
-
+    #get all items in users watchlist
     items = WatchCoin.objects.filter(user=request.user)
     return render(request, "watchlist/watchlist.html", {"items": items, "form": form})
 
 
 def deleteItem(request,item_id):
-    item = WatchCoin.objects.all().filter(id=item_id)
+    #get the item from the watchlist using its id from the url
+    item = WatchCoin.objects.all().filter(id=item_id).filter(user=request.user)
+    #delete it form the model
     item.delete()
     return redirect("/watchlist")
