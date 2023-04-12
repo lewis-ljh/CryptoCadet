@@ -82,12 +82,12 @@ def BuyAndSell(response):
 
 
             if validateSell(coinName, response.POST.get("HowMuch"), ownedCoins):
-                order = Order.objects.create(user=currentUser, coinName=coinName, price=price, type="sell", time=datetime.now())
-                order.save()
 
                 for coins in ownedCoins:
                     if currentUser==coins.user and coinName==coins.coinName:
                         if (coins.amount - float(response.POST.get("HowMuch")) >= 0):
+                            order = Order.objects.create(user=currentUser, coinName=coinName, price=price, type="sell", time=datetime.now())
+                            order.save()
                             coins.amount = coins.amount - float(response.POST.get("HowMuch"))
                             coins.save()
                             profile.account_balance += float(response.POST.get("HowMuch"))*float(price)
