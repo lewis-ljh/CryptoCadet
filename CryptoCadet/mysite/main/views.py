@@ -61,7 +61,21 @@ class ViewPersonalInformation(View):
                 "account_balance": None,
                 "owned_coins": None
             }
+        except Address.DoesNotExist:
+            context = {
+                "first_name": request.user.first_name,
+                "last_name": request.user.last_name,
+                "address": None,
+                "street_name": None,
+                "city": None,
+                "post_code": None,
+                "country": None,
+                "phone_number": profile.phone_number,
+                "account_balance": profile.account_balance,
+                "owned_coins": OwnedCoin.objects.filter(user=request.user)
+            }
         return render(request, self.template_name, context)
+
 
 
 def BuyAndSell(response):
