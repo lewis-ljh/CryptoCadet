@@ -45,14 +45,14 @@
 
         if (score >= 5) {
             console.log("You passed"); 
-            ansDiv.innerHTML = `<h2> well done you passed! </h2>`
+            ansDiv.innerHTML = `<h2> Well done you passed! </h2>`
             scoreDiv.innerHTML = sessionStorage.getItem('result');
-            commentDiv.innerHTML = `<p> congratulations!, you're account is now eligible for an upgrade in becoming an advanced user</p>`
+            commentDiv.innerHTML = `<p> Congratulations!, you're account is now eligible for an upgrade in becoming an advanced user</p>`
         } else {
             console.log("You failed");
-            ansDiv.innerHTML = `<h2> sorry,  you failed! </h2>`
+            ansDiv.innerHTML = `<h2> Sorry,  you failed! </h2>`
             scoreDiv.innerHTML = sessionStorage.getItem('result');
-            commentDiv.innerHTML = `<p> please try this quiz again. you must receive a pass mark of 70% in order to be eligible for an account upgrade </p>`
+            commentDiv.innerHTML = `<p> Please try this quiz again. you must receive a pass mark of 70% in order to be eligible for an account upgrade </p>`
         }
 	</script>
 

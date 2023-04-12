@@ -1,22 +1,66 @@
 {% extends "main/base.html" %}
-{% block title %} <title>Personal Information </title>{% endblock %}
+
+{% block title %}
+    <title>Personal Information</title>
+{% endblock %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-8">
-        <div class="card">
-            <div class="card-header">{{ first_name }} {{ last_name }}</div>
-            <div class="card-body">
-                <h5 class="card-title">Personal Information</h5>
-                {% if address %}
-                    <p class="card-text">Address: {{ address.street_name }}, {{ address.city }}, {{ address.post_code }}, {{ address.country }}</p>
-                {% else %}
-                    <p class="card-text">Address: N/A</p>
-                {% endif %}
-                <p class="card-text">Phone Number: {{ phone_number }}</p>
-                <p class="card-text">Account Balance: {{ account_balance }}</p>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-header bg-primary text-white h4 text-center">{{ first_name }} {{ last_name }}</div>
+                    <div class="card-body">
+                        <h5 class="card-title h3 font-weight-bold text-center mb-4">Personal Information</h5>
+                        <table class="table table-striped table-bordered mt-5">
+                            <tbody>
+                                {% if address %}
+                                    <tr>
+                                        <td>Address</td>
+                                        <td>{{ address.street_name }}, {{ address.city }}, {{ address.post_code }}, {{ address.country }}</td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td>Address</td>
+                                        <td>N/A</td>
+                                    </tr>
+                                {% endif %}
+                                <tr>
+                                    <td>Phone Number</td>
+                                    <td>{{ phone_number }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Account Balance</td>
+                                    <td>${{ account_balance|floatformat:2 }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h5 class="card-title h4 mt-5 border-top pt-4 font-weight-bold text-center">Owned Coins</h5>
+                        {% if owned_coins %}
+                            <table class="table table-striped table-bordered mt-5">
+                                <thead>
+                                    <tr>
+                                        <th>Coin Name</th>
+                                        <th>Amount</th>
+                                        <th>Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for coin in owned_coins %}
+                                        <tr>
+                                            <td>{{ coin.coinName }}</td>
+                                            <td>{{ coin.amount }}</td>
+                                            <td>${{ coin.price|floatformat:2 }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        {% else %}
+                            <p class="card-text h5">You do not own any coins.</p>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 {% endblock %}

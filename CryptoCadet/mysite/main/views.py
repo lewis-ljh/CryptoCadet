@@ -32,22 +32,36 @@ class ViewPersonalInformation(View):
         try:
             profile = Profile.objects.get(user=request.user)
             address = Address.objects.filter(user=request.user).first()
+            if address:
+                street_name, city, post_code, country = address.street_name, address.city, address.post_code, address.country
+            else:
+                street_name, city, post_code, country = None, None, None, None
             context = {
                 "first_name": request.user.first_name,
                 "last_name": request.user.last_name,
-                "address": address,
+                "street_name": street_name,
+                "city": city,
+                "post_code": post_code,
+                "country": country,
                 "phone_number": profile.phone_number,
                 "account_balance": profile.account_balance,
+                "owned_coins": OwnedCoin.objects.filter(user=request.user)
             }
         except Profile.DoesNotExist:
             context = {
                 "first_name": request.user.first_name,
                 "last_name": request.user.last_name,
-                "address": None,
+                "street_name": None,
+                "city": None,
+                "post_code": None,
+                "country": None,
                 "phone_number": None,
                 "account_balance": None,
+                "owned_coins": None
             }
         return render(request, self.template_name, context)
+
+
 
 
 
@@ -171,15 +185,27 @@ def show_deposit_withdraw_form(request):
     if request.method == 'POST':
         form = DepositWithdrawForm(request.POST)
         if form.is_valid():
-            request.session['deposit_withdraw_amount'] = float(form.cleaned_data['amount'])
+            amount = float(form.cleaned_data['amount'])
+            if amount <= 0:
+                form.add_error('amount', 'Amount must be positive.')
+                context = {'form': form}
+                return render(request, 'main/deposit_withdraw.html', context)
+            request.session['deposit_withdraw_amount'] = amount
             if form.cleaned_data['type'] == 'deposit':
                 return redirect(reverse('deposit') + f'?amount={request.session["deposit_withdraw_amount"]}')
+            elif form.cleaned_data['type'] == 'withdraw' and amount > request.user.profile.account_balance:
+                form.add_error('amount', 'Withdraw amount cannot be greater than account balance.')
+                context = {'form': form}
+                return render(request, 'main/deposit_withdraw.html', context)
             else:
+                # Withdrawal amount is valid, continue with redirect
                 return redirect(reverse('withdraw') + f'?amount={request.session["deposit_withdraw_amount"]}')
     else:
         form = DepositWithdrawForm()
     context = {'form': form}
     return render(request, 'main/deposit_withdraw.html', context)
+
+
 
 
 
