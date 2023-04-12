@@ -57,13 +57,13 @@ class DepositForm(forms.Form):
 
 class WithdrawForm(forms.Form):
     account_owner = forms.CharField(label='Account Owner', max_length=100)
-    account_number = forms.CharField(label='Account Number', max_length=16)
+    account_number = forms.CharField(label='Account Number', max_length=8)
     sort_code = forms.CharField(label='Sort Code (XX-XX-XX)', max_length=9)
 
     def clean_account_number(self):
         account_number = self.cleaned_data.get('account_number')
-        if len(account_number) != 16:
-            raise ValidationError('Account number must have 16 digits')
+        if len(account_number) != 8:
+            raise ValidationError('Account number must have 8 digits')
         try:
             digits = [int(c) for c in account_number]
         except ValueError:

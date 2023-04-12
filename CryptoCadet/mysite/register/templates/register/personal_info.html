@@ -5,13 +5,13 @@
 
 
 {% block banner %}
-  <div class="container mt-4">
+  <div class="personal-center">
     <h2 class="mb-4">{{ title }}</h2>
     <form method="POST">
       {% csrf_token %}
       {{ personal_info_form|crispy }}
       {{ address_form|crispy }}
-      <button type="submit" class="btn btn-primary">Save</button>
+      <button type="submit" class="btn btn-primary mt-5">Save</button>
     </form>
   </div>
 {% endblock %}
